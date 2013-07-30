@@ -1,7 +1,7 @@
 var SessionModule = function(){
 	var createPageHtml = function(model){
 		console.log(" --- creating object --- ");
-		var html = '<tr id="session_'+model.key+'" class="pr_'+model.progetto+'">'; 
+		var html = '<tr id="session_'+model.key+'">'; 
 		html += '<td>';
 		html += '<select disabled="disabled" class="progettokey disabled" >';
 		for(var i=0; i<Progetto.lista.length; i++) {
@@ -27,6 +27,22 @@ var SessionModule = function(){
 		html += "</tr>";
 		
 		return html; 
+	};
+	
+	var createSearchForm = function(){
+		var html = '<div class="filter_items">';
+		html += '<div class="section_title"><h3>Ricerca clienti</h3></div>'
+		html += '<div class="filter_buttons">';
+		html += '<div class="filter_button">';
+		html += '<a href="#" id="search_session" title="Filtra i risultati"><img src="imgs/refresh_icon&24_black.png" /></a>';
+		html += '</div>';
+		html += '<div class="filter_button">';
+		html += '<a href="#" id="refresh_session" title="Ricarica la tabella"><img src="imgs/zoom_icon&24_black.png" /></a>';
+		html += '</div>';
+		html += '</div>';
+		html += '</div>';
+		
+		return html;
 	};
 	
 	var createNewSessionForm = function(){
@@ -91,20 +107,6 @@ var SessionModule = function(){
 				
 				return false;
 			});
-			$('div#mainContainer').undelegate("#filter_progetto", "change").delegate("#filter_progetto", "change", function(e){
-				e.preventDefault();
-				
-				var val = $("#filter_progetto").val();
-				if(val!="*") {
-					$("div#mainContainer tr").fadeOut();
-					$("tr.pr_"+$("#filter_progetto").val()).fadeIn();
-				} else {
-					$("div#mainContainer tr").fadeIn();
-				}
-				//alert("tr.pr_"+$("#filter_progetto").val());
-				
-				return false;
-			});
 		},
 		getSessionPage: function(sessionData){
 			$.ajax({
@@ -118,13 +120,6 @@ var SessionModule = function(){
 					allhtml += createNewSessionForm();
 					allhtml += '<hr />';
 					allhtml += '<div class="item_list">';
-					allhtml += '<select id="filter_progetto">';
-					allhtml += '<option value="*">Vedi tutto</option>';
-					for(var i=0; i<Progetto.lista.length; i++) {
-						var m = Progetto.lista[i];
-						allhtml += '<option value="'+m.key+'">'+m.name+'</option>';
-					}
-					allhtml += '</select>';
 					allhtml += '<div class="section_title"><h3>Elenco sessioni</h3></div>'
 					if(!result.data.length)
 						allhtml += '<div><h4>Non &egrave; presente nessuna sessione di lavoro!</h4></div>';
@@ -142,16 +137,10 @@ var SessionModule = function(){
 						allhtml += '</tbody></table>';
 					}
 					allhtml += '</div>';
+					allhtml += createSearchForm();
 						
 					$("div#mainContainer").html(allhtml);
 					initDatepickers();
-					
-					/*window.setTimeout(function(){
-						$("tr.pr_ahNkZXZ-dmluY2Vuem9taW5vbGZpchgLEgtQcm9qZWN0RGF0YRiAgICAgICwCgw").fadeOut();
-					}, 3000);
-					window.setTimeout(function(){
-						$("tr.pr_ahNkZXZ-dmluY2Vuem9taW5vbGZpchgLEgtQcm9qZWN0RGF0YRiAgICAgICwCgw").fadeIn();
-					}, 6000);*/
 				},
 				error: function(richiesta,stato,errori){
 					networkError();

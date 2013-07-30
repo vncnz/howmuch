@@ -76,37 +76,4 @@ $(document).ready(function(){
 		$(this).children("img").attr("src", "imgs/google_icon&16_black.png");
 	});
 	$(window).resize();
-	
-	$.ajax({
-		url:"/aziende",
-		type: "GET",
-		success:function(result){
-			result = JSON.parse(result);
-			checkResponse(result);
-			Aziende.lista = new Array();
-			for(var i=0; i<result.data.length; i++) {
-				var model = Aziende.create(result.data[i].key, result.data[i].name, result.data[i].address, result.data[i].piva, result.data[i].eur_h);
-				Aziende.lista.push(model);
-			}
-		},
-		error: function(richiesta,stato,errori){
-			networkError();
-		}
-	});
-	$.ajax({
-		url: "/project",
-		type: "GET",
-		data: {},
-		success: function(result){
-			result = JSON.parse(result);
-			Progetto.lista = new Array();
-			for(var i = 0; i < result.data.length; i++) {
-				var model = result.data[i];
-				Progetto.lista.push(model);
-			}
-		},
-		error: function(richiesta,stato,errori){
-			networkError();
-		}
-	});
 })

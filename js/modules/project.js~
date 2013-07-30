@@ -146,6 +146,7 @@ var ProgettoModule = function(){
 						allhtml += '</tbody></table>';
 					}
 					allhtml += '</div>';
+					
 					allhtml += createSearchForm();
 						
 					$("div#mainContainer").html(allhtml);

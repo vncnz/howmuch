@@ -24,6 +24,22 @@ var AziendaModule = function(){
 		return html;
 	};
 	
+	var createSearchForm = function(){
+		var html = '<div class="filter_items">';
+		html += '<div class="section_title"><h3>Ricerca clienti</h3></div>'
+		html += '<div class="filter_buttons">';
+		html += '<div class="filter_button">';
+		html += '<a href="#" id="search_customer" title="Filtra i risultati"><img src="imgs/refresh_icon&24_black.png" /></a>';
+		html += '</div>';
+		html += '<div class="filter_button">';
+		html += '<a href="#" id="refresh_customer" title="Ricarica la tabella"><img src="imgs/zoom_icon&24_black.png" /></a>';
+		html += '</div>';
+		html += '</div>';
+		html += '</div>';
+		
+		return html;
+	};
+	
 	var createNewCompanyForm = function(){
 		var html = '<div class="add_new_item" id="company_">';
 		html += '<div class="section_title"><h3>Aggiungi nuovo cliente</h3></div>';
@@ -122,6 +138,7 @@ var AziendaModule = function(){
 						allhtml += '</tbody></table>';
 					}
 					allhtml += '</div>';
+					allhtml += createSearchForm();
 					
 					if(result.msg)
 						alert(result.msg);

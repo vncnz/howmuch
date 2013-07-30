@@ -327,9 +327,9 @@ input.small_input{
 .item_list{
 	position: relative;
 	float: left;
-	clear: both;
-	width: 100%;
-	padding: 15px 0;
+	clear: left;
+	width: 65%;
+	padding: 15px 2%;
 }
 
 table {
@@ -370,6 +370,41 @@ table td * {
 	display: none;
 }
 
+/*------------------- item list and tables ---------------------*/
+.filter_items{
+	float: left;
+	width: 25%;
+	padding: 15px 2%;
+	height: 200px;
+	border-left: 1px solid #3a3a3a;
+	border-radius: 5px 0 0 5px;
+}
+.filter_items .filter_buttons{
+	width: 100%;
+	float: left;
+	clear: both;
+	height: 30px;
+	padding: 3px 0;
+}
+.filter_items .filter_buttons .filter_button{
+	float: right;
+	width: 24px;
+	height: 24px;
+	line-height: 24px;
+	margin: 0 10px;
+}
+.filter_items .filter_buttons .filter_button a{
+	display: block;
+	width: 24px;
+	height: 24px;
+	border: none;
+	text-decoration: none;
+}
+.filter_items .filter_buttons .filter_button a img{
+	width: inherit;
+	height: inherit;
+}
+
 /*------------------------- scrollbar -----------------*/
 ::-webkit-scrollbar{
 	width:0.5em;
@@ -406,10 +441,4 @@ table td * {
 
 .right_text{
 	text-align: right;
-}
-
-#filter_progetto {
-	position: absolute;
-	top: 20px;
-	right: 20px;
 }
