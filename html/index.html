@@ -1,0 +1,109 @@
+<!DOCTYLE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<style>
+			html {
+				height: 100%;
+			}
+			
+			.datetime {
+				position: absolute;
+				left: 20px;
+				font-size: 13px;
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: moz-none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+			.usermail {
+				position: absolute;
+				right: 20px;
+				font-size: 13px;
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: moz-none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+
+		</style>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/datepicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mobiscroll.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/smoothness/jquery-ui.css" media="all" />
+		
+		<script src="js/jquery-1.8.3.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
+		<script type="text/javascript" src="../js/noty/layouts/bottom.js"></script>
+		<script type="text/javascript" src="../js/noty/layouts/bottomCenter.js"></script>
+		<script type="text/javascript" src="../js/noty/layouts/bottomLeft.js"></script>
+		<script type="text/javascript" src="../js/noty/layouts/bottomRight.js"></script>
+		<script type="text/javascript" src="../js/noty/layouts/center.js"></script>
+		<script type="text/javascript" src="../js/noty/layouts/centerLeft.js"></script>
+		<script type="text/javascript" src="../js/noty/layouts/centerRight.js"></script>
+		<script type="text/javascript" src="../js/noty/layouts/inline.js"></script>
+		<script type="text/javascript" src="../js/noty/layouts/top.js"></script>
+		<script type="text/javascript" src="../js/noty/layouts/topCenter.js"></script>
+		<script type="text/javascript" src="../js/noty/layouts/topLeft.js"></script>
+		<script type="text/javascript" src="../js/noty/layouts/topRight.js"></script>
+		
+		<script type="text/javascript" src="js/noty/themes/default.js"></script>
+		
+		<script type="text/javascript" src="js/modules/user.js"></script>
+		<script type="text/javascript" src="js/modules/azienda.js"></script>
+		<script type="text/javascript" src="js/modules/project.js"></script>
+		<script type="text/javascript" src="js/modules/session.js"></script>
+		<script type="text/javascript" src="js/modules/fattura.js"></script>
+		
+		<script src="js/jquery-ui-timepicker-addon.js"></script>
+		<script src="js/mobiscroll.js"></script>
+		<script src="js/datepicker.js"></script>
+		<script src="js/main.js"></script>
+		
+	</head>
+	<body>
+		<header>
+			<div class="header">
+				<h1>Invoice your money!</h1>
+			</div>
+			<nav>
+				<ul>
+					<li onclick="openPage('fattura');">Fattura</li>
+					<li onclick="openPage('session');">Cronologia</li>
+					<li onclick="openPage('progetti');">Progetti</li>
+					<li onclick="openPage('aziende');">Clienti</li>
+					<li onclick="openPage('user');">Dati utente</li>
+				</ul>
+			</nav>
+		</header>
+		
+		<div id="mainContainer">
+		
+			<br />
+			<div class="title">Lorem Ipsum</div>
+			
+			<div class="inevidence">"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."</div>
+			<div class="inevidence">"Non c&apos;&egrave; nessuno a cui piaccia il dolore in s&egrave;, che lo ricerchi e che voglia riceverlo, semplicemente perch&eacute; &egrave; dolore..."</div>
+
+			<div>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque semper consequat ligula, pulvinar cursus ligula consectetur fringilla. Proin aliquet quam libero, interdum gravida nunc viverra id. Cras eleifend dui at faucibus adipiscing. Proin luctus interdum metus, volutpat aliquam urna auctor eu. Proin id tempor ipsum. Sed vel faucibus felis, id porta odio. Etiam pharetra magna tortor, sit amet vehicula elit tempus eget. Proin porta a eros at accumsan. Morbi aliquam sapien in augue gravida pulvinar. Vestibulum auctor pellentesque est, a malesuada leo vulputate eget.</p>
+				<p>Nullam ligula nisi, egestas a pellentesque sit amet, cursus aliquet felis. Sed ac odio ornare, tincidunt ipsum nec, tincidunt lorem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sagittis urna vitae convallis gravida. Sed quis libero at tellus luctus <span class="inevidence"> del testo in evidenza </span> viverra vitae in augue. Nullam quis ligula in dui congue interdum bibendum ac eros. Integer pharetra pharetra sapien ac hendrerit. In ante diam, pellentesque quis leo eu, aliquam semper arcu. Ut mauris neque, auctor volutpat fermentum vitae, mattis sit amet purus. Donec ut tortor tincidunt, tempor enim in, lobortis leo.</p>
+				<p>Nam ut magna neque. Quisque ultricies at nunc nec bibendum. Fusce congue nunc libero, nec ultricies justo varius sit amet. Duis vel sapien et sapien ultrices iaculis blandit at diam. Cras interdum turpis congue imperdiet vestibulum. Sed egestas ante sit amet eros ultricies auctor. Nam convallis fringilla est sed adipiscing. Sed elit odio, lobortis quis sapien nec, imperdiet aliquam sapien. Suspendisse sodales sollicitudin laoreet. Vestibulum a arcu eros. Curabitur pellentesque laoreet orci in lobortis. Morbi dignissim, risus nec accumsan pharetra, quam ligula pulvinar sapien, vitae posuere felis neque et enim. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis bibendum tellus sit amet mauris porttitor, eu rutrum arcu aliquet. Pellentesque tincidunt, dui a pellentesque facilisis, nunc arcu convallis augue, id tempus justo lacus quis turpis.</p>
+			</div>
+
+		</div>
+		
+		<footer>
+			<div class="datetime">Ora corrente (UTC): {{ datetime|safe }}</div>
+			<span>&copy; 2013 All rights reserved</span>&nbsp;-&nbsp;
+			<a href="#">credits</a>
+			<a class="usermail" href="{{ logsession|safe }}" title="Esegui il logout">Benvenuto {{ username|safe }}</a>
+		</footer>
+		
+	</body>
+</html>

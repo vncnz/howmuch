@@ -1,0 +1,61 @@
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Vincenzo Minolfi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/star.css">
+  <link rel="stylesheet" type="text/css" href="css/link.css">
+  <style type="text/css" media="screen">
+	#wrongUser {
+		width: 500px;
+		height: 120px;
+		top: 50%;
+		left: 50%;
+		margin-top: -70px;
+		margin-left: -260px;
+		position: absolute;
+		background: rgba(55,55,55,0.8);
+		border-radius: 12px;
+		border: 1px solid whitesmoke;
+		color: whitesmoke;
+		font-size: 15px;
+		text-align: center;
+		padding: 20px;
+	}
+	#wrongUser .title {
+		font-size: 20px;
+		color: red;
+		font-weight: bold;
+		margin-bottom: 20px;
+	}
+  </style>
+  <link href='http://fonts.googleapis.com/css?family=Bubblegum+Sans' rel='stylesheet' type='text/css'>
+  <script src="js/jquery_191.min.js"></script>
+  <script src="js/main.js"></script>
+  <script type="text/javascript" charset="utf-8">
+
+		function onLoad() {
+			//addScrollEvent();
+			addHoverEvent();
+			linkify('a');
+			//$(".box").click(function(evt){details();});
+			
+			$(window).resize(function() {
+				
+			});
+			$(window).resize();
+		}
+		
+  </script>
+</head>
+	<body onload="onLoad()">
+		<div id="underconstruction">Under Construction</div>
+		<div id="myname">Vincenzo Minolfi</div>
+		<div id="wrongUser">
+			<div class="title">Utente non amministratore</div>
+			<p>Stai accedendo al sito richiedendo la modalit&agrave; admin ma sei loggato in google come {{usermail}} e non possiedi privilegi di amministrazione</p>
+			<p>Se vuoi accedere in modalit&agrave; admin esegui il cambio di utente in google</p>
+		</div>
+	</body>
+</html>

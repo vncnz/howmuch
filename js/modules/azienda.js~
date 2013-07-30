@@ -1,0 +1,104 @@
+var AziendaModule = function(){
+	var createPageHtml = function(model){  
+		var html = '<tr id="company_' + model.key + '">'; 
+		html += '<td><input type="text" class="edit_company_name" name="edit_company_name_' + model.key + '" id="edit_company_name_' + model.key + '" value="' + model.name + '" /></td>';
+		html += '<td><input type="text" class="edit_company_address" name="edit_company_address_' + model.key + '" id="edit_company_address_' + model.key + '" value="' + model.address + '" /></td>';
+		html += '<td><input type="text" class="edit_company_piva" name="edit_company_piva_' + model.key + '" id="edit_company_piva_' + model.key + '" value="' + model.piva + '" /></td>';
+		html += '<td><a href="#" class="edit_company">edit</a></td>';
+		html += '<td><a href="#" class="delete_company">delete</a></td>';
+		html += '</tr>'; 
+		
+		return html;
+	};
+	
+	var createNewCompanyForm = function(){
+		var html = '<div id="create_session" class="form_div">';
+		html += '<div class="form_field first_field">';
+		html += '<label>Ragione Sociale</label><br />';
+		html += '<input type="text" id="new_company_name" name="new_company_name" />';
+		html += '</div>';
+		html += '<div class="form_field">';
+		html += '<label>Indirizzo</label><br />';
+		html += '<input type="text" id="new_company_address" name="new_company_address" />';
+		html += '</div>';
+		html += '<div class="form_field">';
+		html += '<label>Partita IVA</label><br />';
+		html += '<input type="text" id="new_company_piva" name="new_company_piva" />';
+		html += '</div>';
+		html += '<div class="form_field">';
+		html += '<div></div>';
+		html += '<a id="save_company" href="#save">Salva</a>';
+		html += '</div>';
+		html += '</div>';
+		
+		return html;
+	};
+	
+	return {
+		init: function(){
+			$('div#mainContainer').delegate("#save_company", "click", function(e){
+				e.preventDefault();
+				
+				var company = Aziende.create(null, $('#new_company_name').val(), $('#new_company_address').val(), $('#new_company_piva').val());
+				Aziende.addNewCompany(company);
+				
+				return false;
+			});
+		},
+		getAziendePage: function(userData){
+			$.ajax({
+				url:"/aziende",
+				type: "GET",
+				//data: aziendeData,
+				success:function(result){
+					//$("div#mainContainer").html(JSON.stringify(result));
+					result = JSON.parse(result);
+					var allhtml = createNewCompanyForm();
+					if(!result.length)
+						allhtml += "<div>Nessuna azienda da visualizzare</div>";
+					else{
+						allhtml += '<table id="">';
+						for(var i=0; i<result.length; i++) {
+							var model = Aziende.create(result[i].key, result[i].name, result[i].address, result[i].piva);
+							allhtml += createPageHtml(model);
+						}
+						allhtml += '</table>'
+					}
+					
+					$("div#mainContainer").html(allhtml);
+				},
+				error: function(richiesta,stato,errori){
+					$("div#mainContainer").html("<strong>Errore: </strong>"+stato+" "+errori);
+				}
+			});
+		},
+		addNewCompany: function(model){
+			$.ajax({
+				url:"/aziende",
+				type: "GET",
+				data: model,
+				success:function(result){
+					Aziende.getAziendePage({});
+				},
+				error: function(richiesta,stato,errori){
+					$("div#mainContainer").html("<strong>Errore: </strong>"+stato+" "+errori);
+				}
+			});
+		},
+		create: function(key, name, address, piva){
+			var model = new Object();
+			if(key)
+				model.key = key;
+			if(name)
+				model.name = name;
+			if(address)
+				model.address = address;
+			if(piva)
+				model.piva = piva;
+			
+			return model;
+		}
+	};
+}();
+
+var Aziende = AziendaModule;

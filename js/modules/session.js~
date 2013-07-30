@@ -1,0 +1,75 @@
+var SessionModule = function(){
+	var createPageHtml = function(model){
+		var html = '<tr>';
+		html += '<td></td>';
+		html += '</tr>';
+		
+		return html; 
+	};
+	
+	var createNewSessionForm = function(){
+		var html = '<div id="create_session" class="form_div">';
+		html += '<div class="form_field first_field">';
+		html += '<label>Agenzia</label><br />';
+		html += '<input type="text" name="company" id="company" />';
+		html += '</div>';
+		html += '<div class="form_field">';
+		html += '<label>Inizio</label><br />';
+		html += '<input type="text" name="date_start" id="date_start" />';
+		html += '</div>';
+		html += '<div class="form_field">';
+		html += '<label>Fine</label><br />';
+		html += '<input type="text" name="date_end" id="date_end" />';
+		html += '</div>';
+		html += '<div class="form_field">';
+		html += '<a id="save_session" href="#save">Salva</a>';
+		html += '</div>';
+		html += '</div>';
+		
+		return html;
+	};
+	
+	return {
+		init: function(){
+		},
+		getSessionPage: function(sessionData){
+			$.ajax({
+				url: "/session",
+				type: "GET",
+				data: {},
+				success: function(result){
+					result = JSON.parse(result);
+					
+					var html = createNewSessionForm();
+					if(!result.length)
+						html += '<div>Nessuna sessione da visualizzare</div>';
+					else{
+						html += '<table><thead>';
+						html += '<tr>';
+						html += '<th>Azienda</th>';
+						html += '<th>Inizio</th>';
+						html += '<th>Fine</th>';
+						html += '</tr>';
+						
+						html += '</thead><tbody>';						
+						for(var i = 0; i < result.length; i++){
+							var model = result[i];
+							html += createPage(model);
+						}
+						
+						html += '</tbody></table>'
+					}
+						
+					$("div#mainContainer").html(html);
+				},
+				error: function(richiesta,stato,errori){
+					$("div#mainContainer").html("<strong>Errore: </strong>"+stato+" "+errori);
+				}
+			});
+		},
+		create: function(){
+		}
+	};
+}();
+
+var Session = SessionModule;

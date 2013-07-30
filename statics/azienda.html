@@ -1,0 +1,156 @@
+<!DOCTYLE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<style>
+			html {
+				height: 100%;
+			}
+			
+			.datetime {
+				position: absolute;
+				left: 20px;
+				font-size: 13px;
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: moz-none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+			.usermail {
+				position: absolute;
+				right: 20px;
+				font-size: 13px;
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: moz-none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+
+		</style>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/datepicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mobiscroll.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/smoothness/jquery-ui.css" media="all" />
+		
+		<script src="js/jquery-1.8.3.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
+		<script type="text/javascript" src="js/noty/layouts/bottom.js"></script>
+		<script type="text/javascript" src="js/noty/layouts/bottomCenter.js"></script>
+		<script type="text/javascript" src="js/noty/layouts/bottomLeft.js"></script>
+		<script type="text/javascript" src="js/noty/layouts/bottomRight.js"></script>
+		<script type="text/javascript" src="js/noty/layouts/center.js"></script>
+		<script type="text/javascript" src="js/noty/layouts/centerLeft.js"></script>
+		<script type="text/javascript" src="js/noty/layouts/centerRight.js"></script>
+		<script type="text/javascript" src="js/noty/layouts/inline.js"></script>
+		<script type="text/javascript" src="js/noty/layouts/top.js"></script>
+		<script type="text/javascript" src="js/noty/layouts/topCenter.js"></script>
+		<script type="text/javascript" src="js/noty/layouts/topLeft.js"></script>
+		<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
+		
+		<script type="text/javascript" src="js/noty/themes/default.js"></script>
+		
+		<script type="text/javascript" src="js/modules/user.js"></script>
+		<script type="text/javascript" src="js/modules/azienda.js"></script>
+		<script type="text/javascript" src="js/modules/session.js"></script>
+		<script type="text/javascript" src="js/modules/fattura.js"></script>
+		
+		<script src="js/jquery-ui-timepicker-addon.js"></script>
+		<script src="js/mobiscroll.js"></script>
+		<script src="js/datepicker.js"></script>
+		<script src="js/main.js"></script>
+		
+	</head>
+	<body>
+		<header>
+			<div class="header">
+				<h1>Invoice your money!</h1>
+			</div>
+			<nav>
+				<ul>
+					<li>Fattura</li>
+					<li>Cronologia</li>
+					<li>Dati azienda</li>
+					<li>Dati utente</li>
+				</ul>
+			</nav>
+		</header>
+		
+		<div id="mainContainer">
+			<div class="title">Dati Clienti</div>
+			
+			<div class="add_new_item">
+				<div class="section_title"><h3>Aggiungi nuovo cliente</h3></div>
+				<div class="form_field first_field">
+					<label>Ragione Sociale</label><br />
+					<input type="text" name="new_company_name" id="new_company_name" />
+				</div>
+				<div class="form_field">
+					<label>Indirizzo</label><br />
+					<input type="text" name="new_company_address" id="new_company_address" />
+				</div>
+				<div class="form_field">
+					<label>Partita IVA</label><br />
+					<input type="text" name="new_company_piva" id="new_company_piva" />
+				</div>
+				<div class="form_field">
+					<label>Compenso orario(&euro;)</label><br />
+					<input type="text" name="new_company_price" id="new_company_price" />
+				</div>
+				<div class="form_field">
+					<div>&nbsp;</div>
+					<a href="#save" class="form_button save_company" id="save_company" title="Salva nuovo cliente">
+						<img src="imgs/round_plus_icon&24_black.png" />
+					</a>
+				</div>
+			</div>
+			<hr />
+			<div class="item_list">
+				<div class="section_title"><h3>Elenco clienti</h3></div>
+				<table>
+					<thead>
+						<th>Ragione Sociale</th>
+						<th>Indirizzo</th>
+						<th>Partita IVA</th>
+						<th>Compenso orario (&euro;)</th>
+						<th colspan="2"></th>
+					</thead>
+					<tbody>
+						<tr id="company_abc">
+							<td><input type="text" class="edit_company_name disabled" value="Pippo srl" disabled="disabled" /></td>
+							<td><input type="text" class="edit_company_address disabled" value="via Prova 123" disabled="disabled" /></td>
+							<td><input type="text" class="edit_company_piva disabled" value="123456677" disabled="disabled" /></td>
+							<td class="right_text">
+								<span style="margin-left: 2%;">&euro;</span>
+								<input type="text" class="small_input edit_company_eurh disabled" value="10" disabled="disabled" />
+							</td>
+							<td>
+								<a href="#edit" azkey="abc" class="edit_company" title="Modifica i dati del cliente">
+									<img src="imgs/pencil_icon&16_black.png" />
+								</a>
+								<a href="#save" azkey="abc" class="save_company" title="Salva le modifiche">
+									<img src="imgs/checkmark_icon&16_black.png" />
+								</a>
+							</td>
+							<td><a href="#delete" class="delete_company" title="Cancella il cliente">
+								<img src="imgs/delete_icon&16_black.png" />
+							</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<footer>
+			<div class="datetime">Ora corrente (UTC): 18.24</div>
+			<span>&copy; 2013 All rights reserved</span>&nbsp;-&nbsp;
+			<a href="#">credits</a>
+			<a class="usermail" href="#" title="Esegui il logout">Benvenuto albi.mori</a>
+		</footer>
+		
+	</body>
+</html>

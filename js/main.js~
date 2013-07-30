@@ -1,0 +1,58 @@
+
+function openPage(page) {
+	
+	var url = "";
+	
+	switch(page) {
+		case "user":
+			//url = "/user"
+			User.init();
+			User.getUserPage({});
+			break;
+		case "aziende":
+			Aziende.init();
+			Aziende.getAziendePage({});
+			break;
+		case "fattura":
+			// TEMPORANEO
+			$("div#mainContainer").html('<br/><br/><div class="inevidence">Clicca sul pulsante sottostante per scaricare un xls di prova</div><br /><br /><a class="button" href="/download" target="_blank">Scarica</a>');
+			break;
+		default:
+			alert("Unknown");
+			return;
+			break;
+	}
+	
+	/*$.ajax({
+		url:"/user",
+		type: "GET",
+		data: {},
+		success:function(result){
+			//$("div#mainContainer").html(JSON.stringify(result));
+			
+			result = JSON.parse(result);
+			
+			var html = "<div id='userdata'><div>I tuoi dati:</div>";
+			html += "<div>Nome: <input type='text' name='firstName' id='firstName' value='"+result.firstName+"' /></div>";
+			html += "<div>Cognome:  <input type='text' name='lastName' id='lastName' value='"+result.lastName+"' /></div>";
+			html += "<div>Indirizzo: <input type='text' name='address' id='address' value='"+result.address+"' /></div>";
+			html += "<div>P.I.: <input type='text' name='piva' id='piva' value='"+result.piva+"' /></div>";
+			html += "<div>IBAN: <input type='text' name='iban' id='iban' value='"+result.iban+"' /></div>";
+			html += "</div>";
+			
+			$("div#mainContainer").html(html);
+		},
+		error: function(richiesta,stato,errori){
+			$("div#mainContainer").html("<strong>Errore:</strong>"+stato+" "+errori);
+		}
+	});*/
+	
+}
+
+$(function(){
+	$('#login').hover(function(){
+		$(this).children("img").prop("src", "imgs/google_icon&16_white.png");
+	}, function(){
+		$(this).children("img").prop("src", "imgs/google_icon&16_black.png");
+	});
+});
