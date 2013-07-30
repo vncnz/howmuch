@@ -125,6 +125,12 @@ div#mainContainer {
 	-webkit-animation-duration: 0.4s;
 	-webkit-animation-iteration-count: 1;
 }
+
+table td img {
+	width: 20px;
+	height: 20px;
+}
+
 table td img:hover,
 .form_field img:hover {
 	animation-name: bigpulse;
@@ -328,12 +334,17 @@ input.small_input{
 	position: relative;
 	float: left;
 	clear: left;
-	width: 65%;
+	width: 75%;
 	padding: 15px 2%;
+}
+
+#userdata table {
+	width: auto;
 }
 
 table {
 	border-collapse: collapse;
+	width: 96%;
 }
 
 table td {
@@ -373,9 +384,10 @@ table td * {
 /*------------------- item list and tables ---------------------*/
 .filter_items{
 	float: left;
-	width: 25%;
+	margin-top: 5%;
+	width: 15%;
 	padding: 15px 2%;
-	height: 200px;
+	height: 160px;
 	border-left: 1px solid #3a3a3a;
 	border-radius: 5px 0 0 5px;
 }
@@ -403,6 +415,15 @@ table td * {
 .filter_items .filter_buttons .filter_button a img{
 	width: inherit;
 	height: inherit;
+}
+
+#refresh_project, 
+#search_project,
+#refresh_customer,
+#search_customer,
+#refresh_session,
+#search_session {
+	display: none;
 }
 
 /*------------------------- scrollbar -----------------*/

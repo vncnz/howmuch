@@ -1,7 +1,7 @@
 var SessionModule = function(){
 	var createPageHtml = function(model){
 		console.log(" --- creating object --- ");
-		var html = '<tr id="session_'+model.key+'">'; 
+		var html = '<tr id="session_'+model.key+'" class="pr_'+model.progetto+'">'; 
 		html += '<td>';
 		html += '<select disabled="disabled" class="progettokey disabled" >';
 		for(var i=0; i<Progetto.lista.length; i++) {
@@ -14,14 +14,14 @@ var SessionModule = function(){
 		html += '<td><input disabled="disabled" class="datetimepicker end_time disabled" name="end_time" type="text" size=25 value="'+model.end+'" /></td>';
 		html += '<td>';
 		html += '<a href="#edit" sekey="' + model.key + '" class="edit_session" title="Modifica i dati del progetto">';
-		html += '<img src="imgs/pencil_icon&16_black.png" />';
+		html += '<img src="imgs/pencil_icon16_black.png" />';
 		html += '</a>';
 		html += '<a href="#save" sekey="' + model.key + '" class="save_session" title="Salva le modifiche">';
-		html += '<img src="imgs/checkmark_icon&16_black.png" />';
+		html += '<img src="imgs/checkmark_icon16_black.png" />';
 		html += '</a>';
 		html += '</td>';
 		html += '<td><a href="#delete" sekey="' + model.key + '" class="delete_session" title="Cancella il progetto">';
-		html += '<img src="imgs/delete_icon&16_black.png" />';
+		html += '<img src="imgs/delete_icon16_black.png" />';
 		html += '</a></td>';
 		
 		html += "</tr>";
@@ -31,14 +31,21 @@ var SessionModule = function(){
 	
 	var createSearchForm = function(){
 		var html = '<div class="filter_items">';
-		html += '<div class="section_title"><h3>Ricerca clienti</h3></div>'
+		html += '<div class="section_title"><h3>Filtri</h3></div>'
 		html += '<div class="filter_buttons">';
 		html += '<div class="filter_button">';
-		html += '<a href="#" id="search_session" title="Filtra i risultati"><img src="imgs/refresh_icon&24_black.png" /></a>';
+		html += '<a href="#" id="search_session" title="Filtra i risultati"><img src="imgs/refresh_icon24_black.png" /></a>';
 		html += '</div>';
 		html += '<div class="filter_button">';
-		html += '<a href="#" id="refresh_session" title="Ricarica la tabella"><img src="imgs/zoom_icon&24_black.png" /></a>';
+		html += '<a href="#" id="refresh_session" title="Ricarica la tabella"><img src="imgs/zoom_icon24_black.png" /></a>';
 		html += '</div>';
+		html += '<select id="filter_progetto">';
+		html += '<option value="*">Vedi tutto</option>';
+		for(var i=0; i<Progetto.lista.length; i++) {
+			var m = Progetto.lista[i];
+			html += '<option value="'+m.key+'">'+m.name+'</option>';
+		}
+		html += '</select>';
 		html += '</div>';
 		html += '</div>';
 		
@@ -64,7 +71,7 @@ var SessionModule = function(){
 		html += '<div class="form_field">';
 		html += '<div>&nbsp;</div>';
 		html += '<a href="#save" class="form_button save_session" id="save_session" sekey="" title="Crea la nuova sessione">';
-		html += '<img src="imgs/round_plus_icon&24_black.png" />';
+		html += '<img src="imgs/round_plus_icon24_black.png" />';
 		html += '</a>';
 		html += '</div>';
 		html += '</div>';
@@ -104,6 +111,20 @@ var SessionModule = function(){
 				
 				var sekey = $(this).attr("sekey");
 				Session.deleteSession(sekey);
+				
+				return false;
+			});
+			$('div#mainContainer').undelegate("#filter_progetto", "change").delegate("#filter_progetto", "change", function(e){
+				e.preventDefault();
+				
+				var val = $("#filter_progetto").val();
+				if(val!="*") {
+					$("div#mainContainer tr").fadeOut();
+					$("tr.pr_"+$("#filter_progetto").val()).fadeIn();
+				} else {
+					$("div#mainContainer tr").fadeIn();
+				}
+				//alert("tr.pr_"+$("#filter_progetto").val());
 				
 				return false;
 			});

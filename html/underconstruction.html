@@ -1,0 +1,36 @@
+<html>
+	<head>
+		<title>In costruzione</title>
+		<style>
+		.underconstruction {
+			display: block;
+			background: rgb(255,255,255);
+			background-image: url("../imgs/underConstruction.png");
+			background-position: 0 center;
+			background-repeat: no-repeat;
+			color: black;
+			font-size: 20px;
+			line-height: 80px;
+			text-weight: bold;
+			position: fixed;
+			top: 60px;
+			right: 200px;
+			-webkit-transform: rotate(6deg);
+			width: 205px;
+			margin-right: -147px;
+			height: 80px;
+			margin-top: -40px;
+			padding-left: 110px;
+			border: 4px dotted black;
+			border-radius: 12px;
+			z-index: 1000;
+			-webkit-animation: myfirst 2s;
+		}
+		</style>
+	</head>
+	<body>
+		<div class='underconstruction'>Lavori in corso!</div>
+		<a class="usermail" href="{{ logsession|safe }}" title="Esegui il logout">Benvenuto {{ username|safe }}</a>
+		<p>L&apos;accesso a questa web-app &egrave; limitato a pochi utenti</p>
+	</body>
+</html>

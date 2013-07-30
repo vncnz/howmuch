@@ -23,7 +23,6 @@ class UserData(db.Model):
 			userdatadb = UserData.all().filter("user", user).get()
 			
 			if not userdatadb:
-				print "creating new FAKE UserData on db"
 				userdatadb = UserData(user=user, firstName=firstName, lastName=lastName, address=address, piva=piva, iban=iban)
 				userdatadb.put()
 			

@@ -36,10 +36,14 @@ class MyHandler(webapp2.RequestHandler):
 		return True
 	
 	def redirectToLogin(self):
-		return False # la maggior parte degli handler sono er ajax..
+		return False # la maggior parte degli handler sono in ajax..
 	
 	def get(self):
 		user = users.get_current_user()
+		if user and (user.email() not in ["vincenzo.minolfi@gmail.com", "albi.mori@gmail.com", "mc3infotest@gmail.com", "test@example.com"]):
+			print user.email(),"showLavoriInCorso"
+			self.showLavoriInCorso(user)
+			return
 		if self.needAuth():
 			if user:
 				self.safeGet(user)
@@ -54,6 +58,18 @@ class MyHandler(webapp2.RequestHandler):
 	def safeGet(self, user):
 		self.response.out.write("<div class='error'>safeGet va reimplementato dagli handler ereditanti!</div>")
 	
+	def showLavoriInCorso(self, user):
+		template_values = {
+			'datetime':datetime.datetime.utcnow().strftime("%d/%m/%y %X"),
+			'usermail':user.email(),
+			'username':user.nickname(),
+			'logsession':users.create_logout_url('/')
+		}
+		path = "html/underconstruction.html"
+		path = os.path.join(os.path.dirname(__file__), path)
+		self.response.out.write(template.render(path, template_values))
+		return
+		
 	def getAllParametersInDict(self):
 		dic = dict()
 		for argkey in self.request.arguments():

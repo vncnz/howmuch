@@ -10,14 +10,14 @@ var AziendaModule = function(){
 		html += '</td>';
 		html += '<td>';
 		html += '<a href="#edit" azkey="' + model.key + '" class="edit_company" title="Modifica i dati del cliente">';
-		html += '<img src="imgs/pencil_icon&16_black.png" />';
+		html += '<img src="imgs/pencil_icon16_black.png" />';
 		html += '</a>';
 		html += '<a href="#save" azkey="' + model.key + '" class="save_company" title="Salva le modifiche">';
-		html += '<img src="imgs/checkmark_icon&16_black.png" />';
+		html += '<img src="imgs/checkmark_icon16_black.png" />';
 		html += '</a>';
 		html += '</td>';
 		html += '<td><a href="#delete" azkey="' + model.key + '" class="delete_company" title="Cancella il cliente">';
-		html += '<img src="imgs/delete_icon&16_black.png" />';
+		html += '<img src="imgs/delete_icon16_black.png" />';
 		html += '</a></td>';
 		html += '</tr>';
 		
@@ -26,13 +26,13 @@ var AziendaModule = function(){
 	
 	var createSearchForm = function(){
 		var html = '<div class="filter_items">';
-		html += '<div class="section_title"><h3>Ricerca clienti</h3></div>'
+		html += '<div class="section_title"><h3>Filtri</h3></div>'
 		html += '<div class="filter_buttons">';
 		html += '<div class="filter_button">';
-		html += '<a href="#" id="search_customer" title="Filtra i risultati"><img src="imgs/refresh_icon&24_black.png" /></a>';
+		html += '<a href="#" id="search_customer" title="Filtra i risultati"><img src="imgs/refresh_icon24_black.png" /></a>';
 		html += '</div>';
 		html += '<div class="filter_button">';
-		html += '<a href="#" id="refresh_customer" title="Ricarica la tabella"><img src="imgs/zoom_icon&24_black.png" /></a>';
+		html += '<a href="#" id="refresh_customer" title="Ricarica la tabella"><img src="imgs/zoom_icon24_black.png" /></a>';
 		html += '</div>';
 		html += '</div>';
 		html += '</div>';
@@ -62,7 +62,7 @@ var AziendaModule = function(){
 		html += '<div class="form_field">';
 		html += '<div>&nbsp;</div>';
 		html += '<a href="#save" class="form_button save_company" id="save_company" azkey="" title="Salva nuovo cliente">';
-		html += '<img src="imgs/round_plus_icon&24_black.png" />';
+		html += '<img src="imgs/round_plus_icon24_black.png" />';
 		html += '</a>';
 		html += '</div>';
 		html += '</div>';
