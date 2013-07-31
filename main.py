@@ -104,21 +104,13 @@ class MainHandler(MyHandler):
 				else:
 					userstate = 1
 			
-			if userstate>1:
-				# utente gia' "esperenziato" sul sito, va diretto all'app!
+			if userstate>0:
 				path = 'html/index.html'
 				template_values = {
 					'datetime':datetime.datetime.utcnow().strftime("%d/%m/%y %X"),
 					'usermail':user.email(),
 					'username':user.nickname(),
 					'logsession':users.create_logout_url('/')
-				}
-			
-			elif userstate:
-				path = 'html/firstSteps.html'
-				template_values = {
-					'welcome_message': "Benvenuto "+str(user.nickname()),
-					'redirect_url': '/?skip=True'
 				}
 			else:
 				path = 'html/welcome.html'
