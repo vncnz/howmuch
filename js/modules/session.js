@@ -112,8 +112,8 @@ var SessionModule = function(){
 				
 				var sekey = $(this).attr("sekey");
 				
-				Session.markForDeleting(sekey);
-				//Session.deleteSession(sekey);
+				//Session.markForDeleting(sekey);
+				Session.deleteSession(sekey);
 				
 				return false;
 			});
@@ -197,9 +197,34 @@ var SessionModule = function(){
 			}
 		},
 		deleteSessions: function(key){
-			alert("Da modificare!");
-			Session.resetDeleting();
-			/*$.ajax({
+			$.ajax({
+				url:"/session?method=delete",
+				type: "GET",
+				data: {"keys":Session.deleting},
+				success:function(result){
+					Session.resetDeleting();
+					result = JSON.parse(result);
+					checkResponse(result);
+					for(var i=0; i<result.data.keys.length; i++) {
+						$("#session_"+result.data.keys[i]).fadeOut(function(){
+							$("#session_"+result.data.keys[i]).remove();
+						});
+					}
+					/*window.setTimeout(function(){
+						Session.getSessionPage({});
+					}, 300);*/
+				},
+				error: function(richiesta,stato,errori){
+					networkError();
+				}
+			});
+		},
+		resetDeleting: function() {
+			$("tr.deleting").removeClass("deleting");
+			Session.deleting = new Array();
+		},
+		deleteSession: function(key){
+			$.ajax({
 				url:"/session?method=delete",
 				type: "GET",
 				data: {"key":key},
@@ -213,11 +238,7 @@ var SessionModule = function(){
 				error: function(richiesta,stato,errori){
 					networkError();
 				}
-			});*/
-		},
-		resetDeleting: function() {
-			$("tr.deleting").removeClass("deleting");
-			Session.deleting = new Array();
+			});
 		},
 		create: function(key, progetto, start, end){
 			var model = new Object();
