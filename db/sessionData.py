@@ -54,7 +54,7 @@ class SessionData(db.Model):
 			raise ClosedProjectError()
 		if not sessiondatadb.start_time:
 			raise NoStartTimeException()
-		if sessiondatadb.start_time > sessiondatadb.end_time:
+		if sessiondatadb.end_time and (sessiondatadb.start_time > sessiondatadb.end_time):
 			raise EndBeforeStartException()
 		sessiondatadb.put()
 		return sessiondatadb.myserialize(),new
@@ -68,6 +68,7 @@ class SessionData(db.Model):
 			res = res.filter("progetto", db.get(progetto))
 		#elif azienda:
 		#	res = res.filter("azienda", db.get(azienda))
+		res = res.order("start_time")
 		res = filter(lambda r: r.end_time>=datetime.datetime.strptime(start, "%m/%d/%Y"), res)
 		res = filter(lambda r: r.end_time<datetime.datetime.strptime(end, "%m/%d/%Y"), res)
 		print len(res)
