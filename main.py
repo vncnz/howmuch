@@ -211,13 +211,14 @@ class SessionHandler(MyHandler):
 			return
 		elif params['method']== 'delete':
 			try:
-				SessionData.deleteSessionData(**params)
-				self.response.out.write(json.dumps({
-					'status':0,
-					'resultType':'success',
-					'msg':'Sessione eliminata con successo',
-					'data':None
-				}))
+				keys = SessionData.deleteSessionData(**params)
+				if not keys:
+					self.response.out.write(json.dumps({
+						'status':0,
+						'resultType':'success',
+						'msg':'Sessioni eliminate con successo',
+						'data':None
+					}))
 			except Exception as e:
 				self.sendError(e, 'Si &egrave; verificato un errore!')
 
