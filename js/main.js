@@ -55,6 +55,36 @@ function checkResponse(response) {
 	return response.resultType=="success";
 }
 
+function askConfirm(msg, callbackSuccess, callbackError) {
+	var n = noty({
+		text: msg,
+		type: 'confirm',
+		dismissQueue: false,
+		layout: 'bottom',
+		theme: 'defaultTheme',
+		buttons: [{
+				addClass: 'btn btn-primary', 
+				text: 'Ok', 
+				onClick: function($noty) {
+					// this = button element
+					// $noty = $noty element
+					$noty.close();
+					//noty({text: 'You clicked "Ok" button', type: 'success'});
+					callbackSuccess();
+				}
+			},{
+				addClass: 'btn btn-danger', 
+				text: 'Cancel', 
+				onClick: function($noty) {
+					$noty.close();
+					//noty({text: 'You clicked "Cancel" button', type: 'error'});
+					callbackError();
+				}
+			}
+		]
+	});
+}
+
 function networkError() {
 	checkResponse({
 		'resultType': 'error',
