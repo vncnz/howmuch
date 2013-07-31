@@ -81,6 +81,7 @@ var SessionModule = function(){
 	
 	return {
 		init: function(){
+			Session.deleting = new Array();
 			$('div#mainContainer').undelegate(".save_session", "click").delegate(".save_session", "click", function(e){
 				e.preventDefault();
 				
@@ -110,7 +111,9 @@ var SessionModule = function(){
 				e.preventDefault();
 				
 				var sekey = $(this).attr("sekey");
-				Session.deleteSession(sekey);
+				
+				Session.markForDeleting(sekey);
+				//Session.deleteSession(sekey);
 				
 				return false;
 			});
@@ -186,8 +189,17 @@ var SessionModule = function(){
 				}
 			});
 		},
-		deleteSession: function(key){
-			$.ajax({
+		markForDeleting: function(key) {
+			$("#session_"+key).addClass("deleting");
+			Session.deleting.push(key);
+			if(Session.deleting.length==1) {
+				askConfirm("Puoi continuare a selezionare record, quando hai terminato clicca per confermare l&apos;eliminazione o annullare la selezione", Session.deleteSessions, Session.resetDeleting);
+			}
+		},
+		deleteSessions: function(key){
+			alert("Da modificare!");
+			Session.resetDeleting();
+			/*$.ajax({
 				url:"/session?method=delete",
 				type: "GET",
 				data: {"key":key},
@@ -201,7 +213,11 @@ var SessionModule = function(){
 				error: function(richiesta,stato,errori){
 					networkError();
 				}
-			});
+			});*/
+		},
+		resetDeleting: function() {
+			$("tr.deleting").removeClass("deleting");
+			Session.deleting = new Array();
 		},
 		create: function(key, progetto, start, end){
 			var model = new Object();
