@@ -24,6 +24,21 @@ class SessionData(db.Model):
 			db.get(key).delete()
 		else:
 			raise Exception("Inexistent key")
+		#if keys and len(keys[0])==1:
+			#keys =  [keys]
+		#print "keys len",len(keys)
+		#ok = []
+		#errors = []
+		#if keys:
+			#for key in keys:
+				#try:
+					#db.get(key).delete()
+					#ok.append(str(key))
+				#except:
+					#errors.append(str(key))
+		#else:
+			#raise Exception("No keys")
+		#return ok,errors
 	
 	def myserialize(self):
 		return {
