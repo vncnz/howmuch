@@ -19,26 +19,27 @@ class SessionData(db.Model):
 	
 	@staticmethod
 	def deleteSessionData(key=None, **trash):
-		#print "elimino con key="+str(key)
 		if key:
 			db.get(key).delete()
 		else:
 			raise Exception("Inexistent key")
-		#if keys and len(keys[0])==1:
-			#keys =  [keys]
-		#print "keys len",len(keys)
-		#ok = []
-		#errors = []
-		#if keys:
-			#for key in keys:
-				#try:
-					#db.get(key).delete()
-					#ok.append(str(key))
-				#except:
-					#errors.append(str(key))
-		#else:
-			#raise Exception("No keys")
-		#return ok,errors
+	
+	@staticmethod
+	def deleteSessionsData(keys=None, **trash):
+		keys = keys.split('%20')
+		ok = []
+		errors = []
+		if keys:
+			for key in keys:
+				try:
+					db.get(key).delete()
+					ok.append(str(key))
+				except Exception as e:
+					print e
+					errors.append(str(key))
+		else:
+			raise Exception("No keys")
+		return ok,errors
 	
 	def myserialize(self):
 		return {
