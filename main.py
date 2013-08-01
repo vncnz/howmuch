@@ -52,7 +52,7 @@ class MyHandler(webapp2.RequestHandler):
 			else:
 				self.response.out.write("{'error':'Utente non loggato!'}")
 		else:
-			print "Request parameters: ", self.getAllParametersInDict()
+			#print "Request parameters: ", self.getAllParametersInDict()
 			self.safeGet(user)
 	
 	def safeGet(self, user):
@@ -211,15 +211,47 @@ class SessionHandler(MyHandler):
 			return
 		elif params['method']== 'delete':
 			try:
-				keys = SessionData.deleteSessionData(**params)
-				if not keys:
+				ok, errors = SessionData.deleteSessionsData(**params)
+				if not errors:
 					self.response.out.write(json.dumps({
 						'status':0,
 						'resultType':'success',
 						'msg':'Sessioni eliminate con successo',
-						'data':None
+						'data':{
+							'keys': ok,
+							'onerror': errors
+							}
 					}))
+				elif ok:
+					self.response.out.write(json.dumps({
+						'status':0,
+						'resultType':'warning',
+						'msg':'Non &egrave; stato possibile eliminare alcune sessioni',
+						'data':{
+							'keys': ok,
+							'onerror': errors
+							}
+					}))
+				else:
+					self.response.out.write(json.dumps({
+						'status':0,
+						'resultType':'error',
+						'msg':'Nessuna sessione &egrave; stata eliminata',
+						'data':{
+							'keys': ok,
+							'onerror': errors
+							}
+					}))
+				#keys = SessionData.deleteSessionData(**params)
+				#if not keys:
+					#self.response.out.write(json.dumps({
+						#'status':0,
+						#'resultType':'success',
+						#'msg':'Sessioni eliminate con successo',
+						#'data':None
+					#}))
 			except Exception as e:
+				print e
 				self.sendError(e, 'Si &egrave; verificato un errore!')
 
 
@@ -252,13 +284,37 @@ class ProjectHandler(MyHandler):
 			return
 		elif params['method']== 'delete':
 			try:
-				ProjectData.deleteProjectData(**params)
-				self.response.out.write(json.dumps({
-					'status':0,
-					'resultType':'success',
-					'msg':'Progetto eliminato con successo',
-					'data':None
-				}))
+				ok, errors = ProjectData.deleteProjectsData(**params)
+				if not errors:
+					self.response.out.write(json.dumps({
+						'status':0,
+						'resultType':'success',
+						'msg':'Progetti eliminati con successo',
+						'data':{
+							'keys': ok,
+							'onerror': errors
+							}
+					}))
+				elif ok:
+					self.response.out.write(json.dumps({
+						'status':0,
+						'resultType':'warning',
+						'msg':'Non &egrave; stato possibile eliminare alcuni progetti',
+						'data':{
+							'keys': ok,
+							'onerror': errors
+							}
+					}))
+				else:
+					self.response.out.write(json.dumps({
+						'status':0,
+						'resultType':'error',
+						'msg':'Nessun progetto &egrave; stata eliminato',
+						'data':{
+							'keys': ok,
+							'onerror': errors
+							}
+					}))
 			except Exception as e:
 				self.sendError(e, str(e))# 'Si &egrave; verificato un errore!')
 
