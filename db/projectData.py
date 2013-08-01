@@ -24,6 +24,23 @@ class ProjectData(db.Model):
 		else:
 			raise Exception("Inexistent key")
 	
+	@staticmethod
+	def deleteProjectsData(keys=None, **trash):
+		keys = keys.split('%20')
+		ok = []
+		errors = []
+		if keys:
+			for key in keys:
+				try:
+					db.get(key).delete()
+					ok.append(str(key))
+				except Exception as e:
+					print e
+					errors.append(str(key))
+		else:
+			raise Exception("No keys")
+		return ok,errors
+	
 	def myserialize(self):
 		return {
 				'key':str(self.key()),
