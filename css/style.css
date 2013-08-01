@@ -360,8 +360,14 @@ table td * {
 	height: 16px;
 }
 
-.item_list table tr.deleting .delete_session{
-	background:red;
+.item_list table tr.deleting {
+background: -moz-linear-gradient(top, rgba(255,99,99,0.75) 0%, rgba(159,30,30,0) 35%, rgba(118,0,0,0) 50%, rgba(159,30,30,0) 65%, rgba(255,99,99,0.75) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,99,99,0.75)), color-stop(35%,rgba(159,30,30,0)), color-stop(50%,rgba(118,0,0,0)), color-stop(65%,rgba(159,30,30,0)), color-stop(100%,rgba(255,99,99,0.75))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, rgba(255,99,99,0.75) 0%,rgba(159,30,30,0) 35%,rgba(118,0,0,0) 50%,rgba(159,30,30,0) 65%,rgba(255,99,99,0.75) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, rgba(255,99,99,0.75) 0%,rgba(159,30,30,0) 35%,rgba(118,0,0,0) 50%,rgba(159,30,30,0) 65%,rgba(255,99,99,0.75) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, rgba(255,99,99,0.75) 0%,rgba(159,30,30,0) 35%,rgba(118,0,0,0) 50%,rgba(159,30,30,0) 65%,rgba(255,99,99,0.75) 100%); /* IE10+ */
+background: linear-gradient(to bottom, rgba(255,99,99,0.75) 0%,rgba(159,30,30,0) 35%,rgba(118,0,0,0) 50%,rgba(159,30,30,0) 65%,rgba(255,99,99,0.75) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfff6363', endColorstr='#bfff6363',GradientType=0 ); /* IE6-9 */
 }
 
 .item_list table tr th, .item_list table tr td{
