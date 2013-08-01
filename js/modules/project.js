@@ -125,7 +125,7 @@ var ProgettoModule = function(){
 				
 				var val = $("#filter_azienda").val();
 				if(val!="*") {
-					$("div#mainContainer tr").fadeOut();
+					$("div#mainContainer tbody tr").fadeOut();
 					$("tr.az_"+$("#filter_azienda").val()).fadeIn();
 				} else {
 					$("div#mainContainer tr").fadeIn();
