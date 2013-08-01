@@ -11,7 +11,7 @@ var ProgettoModule = function(){
 		}
 		html += '</select>';
 		html += '</td>';
-		html += '<td><input disabled="disabled" class="name disabled" name="name" type="text" value="'+model.name+'" /></td>';
+		html += '<td><input disabled="disabled" class="name disabled" name="name" type="text" value="'+model.name+'" title="'+model.name+'" /></td>';
 		html += '<td class="right_text">';
 		html += '<span style="margin-left: 2%;">&euro; </span>';
 		html += '<input type="number" min="0" step="0.5" class="small_input edit_company_eurh disabled" name="edit_company_eurh_' + model.eur + '" id="edit_company_eurh_' + model.eur_h + '" value="' + model.eur + '" disabled="disabled" />';
@@ -88,6 +88,7 @@ var ProgettoModule = function(){
 	
 	return {
 		init: function(){
+			Progetto.deleting = new Array();
 			$('div#mainContainer').undelegate(".save_project", "click").delegate(".save_project", "click", function(e){
 				e.preventDefault();
 				
@@ -116,7 +117,8 @@ var ProgettoModule = function(){
 				e.preventDefault();
 				
 				var prkey = $(this).attr("prkey");
-				Progetto.deleteProgetto(prkey);
+				//Progetto.deleteProgetto(prkey);
+				Progetto.markForDeleting(prkey);
 				
 				return false;
 			});
@@ -192,6 +194,40 @@ var ProgettoModule = function(){
 					networkError();
 				}
 			});
+		},
+		markForDeleting: function(key) {
+			$("#project_"+key).addClass("deleting");
+			Progetto.deleting.push(key);
+			if(Progetto.deleting.length==1) {
+				askConfirm("Puoi continuare a selezionare record, quando hai terminato clicca per confermare l&apos;eliminazione o annullare la selezione", Progetto.deleteProgetti, Progetto.resetDeleting);
+			}
+		},
+		deleteProgetti: function(key){
+			$.ajax({
+				url:"/project?method=delete",
+				type: "GET",
+				data: {"keys":Progetto.deleting.join("%20")},
+				success:function(result){
+					Progetto.resetDeleting();
+					result = JSON.parse(result);
+					checkResponse(result);
+					for(var i=0; i<result.data.keys.length; i++) {
+						$("#project_"+result.data.keys[i]).fadeOut(function(){
+							$("#project_"+result.data.keys[i]).remove();
+						});
+					}
+					/*window.setTimeout(function(){
+						Session.getSessionPage({});
+					}, 300);*/
+				},
+				error: function(richiesta,stato,errori){
+					networkError();
+				}
+			});
+		},
+		resetDeleting: function() {
+			$("tr.deleting").removeClass("deleting");
+			Progetto.deleting = new Array();
 		},
 		deleteProgetto: function(key){
 			$.ajax({
