@@ -1,9 +1,9 @@
 var AziendaModule = function(){
 	var createPageHtml = function(model){ 
 		var html = '<tr id="company_' + model.key + '">';
-		html += '<td><input type="text" class="edit_company_name disabled" name="edit_company_name_' + model.key + '" id="edit_company_name_' + model.key + '" value="' + model.name + '" disabled="disabled" /></td>';
-		html += '<td><input type="text" class="edit_company_address disabled" name="edit_company_address_' + model.key + '" id="edit_company_address_' + model.key + '" value="' + model.address + '" disabled="disabled" /></td>';
-		html += '<td><input type="text" class="edit_company_piva disabled" name="edit_company_piva_' + model.key + '" id="edit_company_piva_' + model.key + '" value="' + model.piva + '" disabled="disabled" /></td>';
+		html += '<td><input type="text" class="edit_company_name disabled" name="edit_company_name_' + model.key + '" id="edit_company_name_' + model.key + '" value="' + model.name + '" disabled="disabled" title="'+model.name+'" /></td>';
+		html += '<td><input type="text" class="edit_company_address disabled" name="edit_company_address_' + model.key + '" id="edit_company_address_' + model.key + '" value="' + model.address + '" disabled="disabled" title="'+model.address+'"/></td>';
+		html += '<td><input type="text" class="edit_company_piva disabled" name="edit_company_piva_' + model.key + '" id="edit_company_piva_' + model.key + '" value="' + model.piva + '" disabled="disabled" title="'+model.piva+'" /></td>';
 		html += '<td class="right_text">';
 		html += '<span style="margin-left: 2%;">&euro; </span>';
 		html += '<input type="number" min="0" step="0.5" class="small_input edit_company_eurh disabled" name="edit_company_eurh_' + model.eur_h + '" id="edit_company_eurh_' + model.eur_h + '" value="' + model.eur_h + '" disabled="disabled" />';
