@@ -122,7 +122,7 @@ var SessionModule = function(){
 				
 				var val = $("#filter_progetto").val();
 				if(val!="*") {
-					$("div#mainContainer tr").fadeOut();
+					$("div#mainContainer tbody tr").fadeOut();
 					$("tr.pr_"+$("#filter_progetto").val()).fadeIn();
 				} else {
 					$("div#mainContainer tr").fadeIn();
