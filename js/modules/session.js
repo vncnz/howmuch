@@ -112,8 +112,8 @@ var SessionModule = function(){
 				
 				var sekey = $(this).attr("sekey");
 				
-				//Session.markForDeleting(sekey);
-				Session.deleteSession(sekey);
+				Session.markForDeleting(sekey);
+				//Session.deleteSession(sekey);
 				
 				return false;
 			});
@@ -200,7 +200,7 @@ var SessionModule = function(){
 			$.ajax({
 				url:"/session?method=delete",
 				type: "GET",
-				data: {"keys":Session.deleting},
+				data: {"keys":Session.deleting.join("%20")},
 				success:function(result){
 					Session.resetDeleting();
 					result = JSON.parse(result);
