@@ -115,14 +115,30 @@ input.ui-editRangeSlider-inputValue{
 .hourslider {
 	width: 150px;
 	margin-top: -30px;
+	width: 550px;
+}
+
+.ui-rangeSlider-disabled {
+	cursor: pointer !important;
 }
 
 .form_field .hourslider {
 	margin-top: -18px;
 	/* Il valore che segue e' solo qui finche' ci sono tempi di inizio e fine per i test.. Poi diventa uno stile di .hourslider (regola precedente) */
-	width: 450px;
+	width: 550px;
 }
 
 .hourslider .ui-rangeSlider-label {
 	width: auto;
+}
+
+.slider-rule-unit {
+	border-left: 1px solid black;
+	/*padding-left: 2px;
+	margin-right: -3px;*/
+	margin-left: -1px;
+	text-align: center;
+	font-size: 10px;
+	height: 80%;
+	overflow: visible;
 }
