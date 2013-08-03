@@ -139,4 +139,4 @@ $(document).ready(function(){
 			networkError();
 		}
 	});
-})
+});
