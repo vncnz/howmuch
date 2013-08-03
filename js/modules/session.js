@@ -1,6 +1,5 @@
 var SessionModule = function(){
 	var createPageHtml = function(model){
-		console.log(" --- creating object --- ");
 		var html = '<tr id="session_'+model.key+'" class="pr_'+model.progetto+'">'; 
 		html += '<td>';
 		html += '<select disabled="disabled" class="progettokey disabled" >';
@@ -12,6 +11,14 @@ var SessionModule = function(){
 		html += '</td>';
 		html += '<td><input disabled="disabled" class="datetimepicker start_time disabled" name="start_time" type="text" size=25 value="'+model.start+'" /></td>';
 		html += '<td><input disabled="disabled" class="datetimepicker end_time disabled" name="end_time" type="text" size=25 value="'+model.end+'" /></td>';
+		html += '<td>';
+		var d = (new Date(model.start));
+		var v = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear();
+		html += '<input disabled="disabled" class="datepicker date_picker disabled" name="date_picker" sekey="'+model.key+'" value="'+v+'" type="text" size=20 />';
+		html += '</td>';
+		html += '<td>';
+		html += '<div class="hourslider" start_time="'+model.start+'" end_time="'+model.end+'">&nbsp;</div>';
+		html += '</td>';
 		html += '<td>';
 		html += '<a href="#edit" sekey="' + model.key + '" class="edit_session" title="Modifica i dati del progetto">';
 		html += '<img src="imgs/pencil_icon16_black.png" />';
@@ -63,10 +70,15 @@ var SessionModule = function(){
 			html += '<option value="'+m.key+'">'+m.name+'</option>';
 		}
 		html += '</select>';
+		//html += '</div><div class="form_field">';
+		//html += '<label>Inizio</label><br /><input class="datetimepicker start_time" name="start_time" type="text" size=25 />';
+		//html += '</div><div class="form_field">';
+		//html += '<label>Fine</label><br /><input class="datetimepicker end_time" name="end_time" type="text" size=25 />';
+		html += '</div>';
+		html += '<div class="form_field">';
+		html += '<label>Data</label><br /><input class="datepicker date_picker" name="date_picker" type="text" size=20 />';
 		html += '</div><div class="form_field">';
-		html += '<label>Inizio</label><br /><input class="datetimepicker start_time" name="start_time" type="text" size=25 />';
-		html += '</div><div class="form_field">';
-		html += '<label>Fine</label><br /><input class="datetimepicker end_time" name="end_time" type="text" size=25 />';
+		html += '<label>Intervallo</label><br /><div class="hourslider">&nbsp;</div>';
 		html += '</div>';
 		html += '<div class="form_field">';
 		html += '<div>&nbsp;</div>';
@@ -86,7 +98,11 @@ var SessionModule = function(){
 				e.preventDefault();
 				
 				var sekey = $(this).attr("sekey") || "";
-				var session = Session.create(sekey || null, $('#session_' + sekey + ' .progettokey').val(), $('#session_' + sekey + ' .start_time').val(), $('#session_' + sekey + ' .end_time').val());
+				//var session = Session.create(sekey || null, $('#session_' + sekey + ' .progettokey').val(), $('#session_' + sekey + ' .start_time').val(), $('#session_' + sekey + ' .end_time').val());
+				var values = $('#session_' + sekey + ' .hourslider').dateRangeSlider("values");
+				var session = Session.create(sekey || null, $('#session_' + sekey + ' .progettokey').val(), 
+											 values.min, 
+											 values.max);
 				//alert(JSON.stringify(session));
 				Session.addNewSession(session);
 				
@@ -99,10 +115,10 @@ var SessionModule = function(){
 				var sekey = $(this).attr("sekey");
 				$('#session_' + sekey + ' input, #session_' + sekey + ' select').attr("disabled", false);
 				$('#session_' + sekey + ' .edit_session').hide();
-				//$('#company_' + azkey + ' .delete_company').hide();
 				$('#session_' + sekey + ' .save_session').show();
 				
 				$('#session_' + sekey + ' input, #session_' + sekey + ' select').removeClass("disabled");
+				$('#session_' + sekey + ' .hourslider').dateRangeSlider("enable");
 				
 				return false;
 			});
@@ -127,7 +143,6 @@ var SessionModule = function(){
 				} else {
 					$("div#mainContainer tr").fadeIn();
 				}
-				//alert("tr.pr_"+$("#filter_progetto").val());
 				
 				return false;
 			});
@@ -150,8 +165,10 @@ var SessionModule = function(){
 					else{
 						allhtml += '<table><thead>';
 						allhtml += '<th>Progetto</th>';
-						allhtml += '<th>Inizio</th>';
-						allhtml += '<th>Fine</th>';
+						allhtml += '<th>Inizio UTC (per test)</th>';
+						allhtml += '<th>Fine UTC (per test)</th>';
+						allhtml += '<th>Data</th>';
+						allhtml += '<th>Intervallo</th>';
 						allhtml += '<th colspan="2"></th>';
 						allhtml += '</thead><tbody>';
 						for(var i = 0; i < result.data.length; i++) {
@@ -164,12 +181,37 @@ var SessionModule = function(){
 					allhtml += createSearchForm();
 						
 					$("div#mainContainer").html(allhtml);
-					initDatepickers();
+					//initDatepickers();
+					$('.datepicker').datepicker({});
+					$('.datepicker').change(function(){
+						Session.onChangeDate($(this).attr("sekey") || '');
+					});
+					initRanges();
 				},
 				error: function(richiesta,stato,errori){
 					networkError();
 				}
 			});
+		},
+		onChangeDate: function(key){
+			//alert(key);
+			var value = $('#session_' + key + ' .date_picker').val();
+			//alert(value);
+			var pickervalues = value.split("/");
+			//var dt = new Date(values[2], values[0], values[1]);
+			//alert(dt);
+			var values = $('#session_' + key + ' .hourslider').dateRangeSlider("values");
+			var n = new Date(pickervalues[2], parseInt(pickervalues[0])-1, pickervalues[1], 0, 0);
+			var x = new Date(pickervalues[2], parseInt(pickervalues[0])-1, pickervalues[1], 23, 59);
+			values.min.setMonth(parseInt(pickervalues[0])-1);
+			values.min.setDate(pickervalues[1]);
+			values.min.setYear(pickervalues[2]);
+			values.max.setMonth(parseInt(pickervalues[0])-1);
+			values.max.setDate(pickervalues[1]);
+			values.max.setYear(pickervalues[2]);
+			$('#session_' + key + ' .hourslider').dateRangeSlider("bounds", n, x);
+			$('#session_' + key + ' .hourslider').dateRangeSlider("values", values.min, values.max);
+			var values = $('#session_' + key + ' .hourslider').dateRangeSlider("values");
 		},
 		addNewSession: function(model){
 			$.ajax({
@@ -244,8 +286,8 @@ var SessionModule = function(){
 			var model = new Object();
 			model.key = key;
 			model.progetto = progetto;
-			model.start = start;
-			model.end = end;
+			model.start = start.toJSON();
+			model.end = end.toJSON();
 			return model;
 		}
 	};
