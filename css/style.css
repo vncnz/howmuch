@@ -474,3 +474,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfff6363', e
 .right_text{
 	text-align: right;
 }
+
+
+
+.date_picker {
+	width: 90px;
+}
