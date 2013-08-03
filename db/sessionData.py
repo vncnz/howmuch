@@ -44,8 +44,8 @@ class SessionData(db.Model):
 	def myserialize(self):
 		return {
 				'key':str(self.key()),
-				'start':self.start_time and self.start_time.strftime("%m/%d/%Y %H:%M") or '',
-				'end':self.end_time and self.end_time.strftime("%m/%d/%Y %H:%M") or '',
+				'start':self.start_time and self.start_time.isoformat() or '',
+				'end':self.end_time and self.end_time.isoformat() or '',
 				#'azienda': self.azienda and str(self.azienda.key()) or None,
 				'progetto': self.progetto and str(self.progetto.key()) or None,
 			}
@@ -57,10 +57,10 @@ class SessionData(db.Model):
 		sessiondatadb, new = key and (db.get(key), False) or (SessionData(), True)
 		sessiondatadb.user = user
 		if start:
-			start_time = datetime.datetime.strptime(start, "%m/%d/%Y %H:%M")
+			start_time = datetime.datetime.strptime(start, '%Y-%m-%dT%H:%M:%S.%fZ')
 			sessiondatadb.start_time = start_time
 		if end:
-			end_time = datetime.datetime.strptime(end, "%m/%d/%Y %H:%M")
+			end_time = datetime.datetime.strptime(end, '%Y-%m-%dT%H:%M:%S.%fZ')
 			sessiondatadb.end_time = end_time
 		if progetto:
 			sessiondatadb.progetto = db.get(progetto)
