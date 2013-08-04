@@ -134,9 +134,17 @@
 				e.preventDefault();
 				
 				var sekey = $(this).attr("sekey");
-				
-				Session.markForDeleting(sekey);
-				//Session.deleteSession(sekey);
+				if($('#session_'+sekey).hasClass("deleting")){
+					noty({
+						type: "warning",
+						layout: "topCenter",
+						text: "<strong>Sessione di lavoro gi&agrave; selezionata!</strong>",
+						timeout: 3000
+					});
+				}
+				else{
+					Session.markForDeleting(sekey);
+				}
 				
 				return false;
 			});
@@ -189,7 +197,9 @@
 						
 					$("div#mainContainer").html(allhtml);
 					//initDatepickers();
-					$('.datepicker').datepicker({});
+					$('.datepicker').datepicker({
+						dateFormat: "dd/mm/yy"
+					});
 					$('.datepicker').change(function(){
 						Session.onChangeDate($(this).attr("sekey") || '');
 					});
@@ -215,24 +225,18 @@
 			});
 		},
 		onChangeDate: function(key){
-			//alert(key);
-			var value = $('#session_' + key + ' .date_picker').val();
-			//alert(value);
-			var pickervalues = value.split("/");
-			//var dt = new Date(values[2], values[0], values[1]);
-			//alert(dt);
+			var valueDate = $('#session_' + key + ' .date_picker').datepicker( "getDate" );
 			var values = $('#session_' + key + ' .hourslider').dateRangeSlider("values");
-			var n = new Date(pickervalues[2], parseInt(pickervalues[0])-1, pickervalues[1], 0, 0);
-			var x = new Date(pickervalues[2], parseInt(pickervalues[0])-1, pickervalues[1], 23, 59);
-			values.min.setMonth(parseInt(pickervalues[0])-1);
-			values.min.setDate(pickervalues[1]);
-			values.min.setYear(pickervalues[2]);
-			values.max.setMonth(parseInt(pickervalues[0])-1);
-			values.max.setDate(pickervalues[1]);
-			values.max.setYear(pickervalues[2]);
+			var n = new Date(valueDate.getFullYear(), valueDate.getMonth(), valueDate.getDate(), 0, 0);
+			var x = new Date(valueDate.getFullYear(), valueDate.getMonth(), valueDate.getDate(), 23, 59);
+			values.min.setMonth(valueDate.getMonth());
+			values.min.setDate(valueDate.getDate());
+			values.min.setFullYear(valueDate.getFullYear());
+			values.max.setMonth(valueDate.getMonth());
+			values.max.setDate(valueDate.getDate());
+			values.max.setFullYear(valueDate.getFullYear());
 			$('#session_' + key + ' .hourslider').dateRangeSlider("bounds", n, x);
 			$('#session_' + key + ' .hourslider').dateRangeSlider("values", values.min, values.max);
-			var values = $('#session_' + key + ' .hourslider').dateRangeSlider("values");
 		},
 		addNewSession: function(model){
 			$.ajax({
