@@ -1,4 +1,4 @@
-var ProgettoModule = function(){
+;var ProgettoModule = function(){
 	var createPageHtml = function(model){
 		console.log(" --- creating object --- ");
 		var html = '<tr id="project_'+model.key+'" class="az_'+model.azienda+'">'; 
@@ -45,7 +45,7 @@ var ProgettoModule = function(){
 		html += '<a href="#" id="refresh_project" title="Ricarica la tabella"><img src="imgs/zoom_icon24_black.png" /></a>';
 		html += '</div>';
 		html += '<select id="filter_azienda">';
-		html += '<option value="*">Vedi tutto</option>';
+		//html += '<option value="*">Vedi tutto</option>';
 		for(var i=0; i<Aziende.lista.length; i++) {
 			var m = Aziende.lista[i];
 			html += '<option value="'+m.key+'">'+m.name+'</option>';
@@ -122,7 +122,7 @@ var ProgettoModule = function(){
 				
 				return false;
 			});
-			$('div#mainContainer').undelegate("#filter_azienda", "change").delegate("#filter_azienda", "change", function(e){
+			/*$('div#mainContainer').undelegate("#filter_azienda", "change").delegate("#filter_azienda", "change", function(e){
 				e.preventDefault();
 				
 				var val = $("#filter_azienda").val();
@@ -134,7 +134,7 @@ var ProgettoModule = function(){
 				}
 				
 				return false;
-			});
+			});*/
 		},
 		getProgettiPage: function(projectData){
 			$.ajax({
@@ -172,6 +172,21 @@ var ProgettoModule = function(){
 						
 					$("div#mainContainer").html(allhtml);
 					initDatepickers();
+					$('select#filter_azienda').select({
+						maxItemDisplay: 2,
+						onclick: function(selArray){
+							if(!selArray || !selArray.length) {
+								$("div#mainContainer tbody tr").fadeIn();
+							} else {
+								//console.log(JSON.stringify(selArray));
+								$("div#mainContainer tbody tr").fadeOut();
+								for(var i=0; i<selArray.length; i++) {
+									var k = selArray[i];
+									$("tr.az_"+k).fadeIn();
+								}
+							}
+						}
+					});
 				},
 				error: function(richiesta,stato,errori){
 					networkError();
