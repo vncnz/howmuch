@@ -1,4 +1,4 @@
-var SessionModule = function(){
+;var SessionModule = function(){
 	var createPageHtml = function(model){
 		var html = '<tr id="session_'+model.key+'" class="pr_'+model.progetto+'">'; 
 		html += '<td>';
@@ -9,8 +9,8 @@ var SessionModule = function(){
 		}
 		html += '</select>';
 		html += '</td>';
-		html += '<td><input disabled="disabled" class="datetimepicker start_time disabled" name="start_time" type="text" size=25 value="'+model.start+'" /></td>';
-		html += '<td><input disabled="disabled" class="datetimepicker end_time disabled" name="end_time" type="text" size=25 value="'+model.end+'" /></td>';
+		//html += '<td><input disabled="disabled" class="datetimepicker start_time disabled" name="start_time" type="text" size=25 value="'+model.start+'" /></td>';
+		//html += '<td><input disabled="disabled" class="datetimepicker end_time disabled" name="end_time" type="text" size=25 value="'+model.end+'" /></td>';
 		html += '<td>';
 		var d = (new Date(model.start));
 		var v = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear();
@@ -46,8 +46,8 @@ var SessionModule = function(){
 		html += '<div class="filter_button">';
 		html += '<a href="#" id="refresh_session" title="Ricarica la tabella"><img src="imgs/zoom_icon24_black.png" /></a>';
 		html += '</div>';
-		html += '<select id="filter_progetto">';
-		html += '<option value="*">Vedi tutto</option>';
+		html += '<select multiple="multiple" id="filter_progetto">';
+		//html += '<option value="*">Vedi tutto</option>';
 		for(var i=0; i<Progetto.lista.length; i++) {
 			var m = Progetto.lista[i];
 			html += '<option value="'+m.key+'">'+m.name+'</option>';
@@ -100,6 +100,13 @@ var SessionModule = function(){
 				var sekey = $(this).attr("sekey") || "";
 				//var session = Session.create(sekey || null, $('#session_' + sekey + ' .progettokey').val(), $('#session_' + sekey + ' .start_time').val(), $('#session_' + sekey + ' .end_time').val());
 				var values = $('#session_' + sekey + ' .hourslider').dateRangeSlider("values");
+				if(!sekey && !$('#session_' + sekey + ' .date_picker').val()) {
+					checkResponse({
+						'resultType': 'error',
+						'msg': 'Non hai specificato una data'
+					});
+					return false;
+				}
 				var session = Session.create(sekey || null, $('#session_' + sekey + ' .progettokey').val(), 
 											 values.min, 
 											 values.max);
@@ -133,7 +140,7 @@ var SessionModule = function(){
 				
 				return false;
 			});
-			$('div#mainContainer').undelegate("#filter_progetto", "change").delegate("#filter_progetto", "change", function(e){
+			/*$('div#mainContainer').undelegate("#filter_progetto", "change").delegate("#filter_progetto", "change", function(e){
 				e.preventDefault();
 				
 				var val = $("#filter_progetto").val();
@@ -145,7 +152,7 @@ var SessionModule = function(){
 				}
 				
 				return false;
-			});
+			});*/
 		},
 		getSessionPage: function(sessionData){
 			$.ajax({
@@ -165,8 +172,8 @@ var SessionModule = function(){
 					else{
 						allhtml += '<table><thead>';
 						allhtml += '<th>Progetto</th>';
-						allhtml += '<th>Inizio UTC (per test)</th>';
-						allhtml += '<th>Fine UTC (per test)</th>';
+						//allhtml += '<th>Inizio UTC (per test)</th>';
+						//allhtml += '<th>Fine UTC (per test)</th>';
 						allhtml += '<th>Data</th>';
 						allhtml += '<th>Intervallo</th>';
 						allhtml += '<th colspan="2"></th>';
@@ -187,6 +194,20 @@ var SessionModule = function(){
 						Session.onChangeDate($(this).attr("sekey") || '');
 					});
 					initRanges();
+					$('select#filter_progetto').select({
+						maxItemDisplay: 2,
+						onclick: function(selArray){
+							if(!selArray || !selArray.length) {
+								$("div#mainContainer tbody tr").fadeIn();
+							} else {
+								$("div#mainContainer tbody tr").fadeOut();
+								for(var i=0; i<selArray.length; i++) {
+									var k = selArray[i];
+									$("tr.pr_"+k).fadeIn();
+								}
+							}
+						}
+					});
 				},
 				error: function(richiesta,stato,errori){
 					networkError();
