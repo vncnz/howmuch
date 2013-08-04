@@ -103,7 +103,7 @@
 				e.preventDefault();
 				
 				var prkey = $(this).attr("prkey");
-				$('#project_' + prkey + ' input').attr("disabled", false);
+				$('#project_' + prkey + ' input, #project_' + prkey + ' select').attr("disabled", false);
 				$('#project_' + prkey + ' .edit_project').hide();
 				//$('#company_' + azkey + ' .delete_company').hide();
 				$('#project_' + prkey + ' .save_project').show();
@@ -117,9 +117,17 @@
 				e.preventDefault();
 				
 				var prkey = $(this).attr("prkey");
-				//Progetto.deleteProgetto(prkey);
-				Progetto.markForDeleting(prkey);
-				
+				if($('#project_'+prkey).hasClass("deleting")){
+					noty({
+						type: "warning",
+						layout: "topCenter",
+						text: "<strong>Progetto gi&agrave; selezionato!</strong>",
+						timeout: 3000
+					});
+				} else {
+					Progetto.markForDeleting(prkey);
+				}
+
 				return false;
 			});
 			/*$('div#mainContainer').undelegate("#filter_azienda", "change").delegate("#filter_azienda", "change", function(e){
