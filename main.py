@@ -206,7 +206,7 @@ class SessionHandler(MyHandler):
 					'msg':'Sessione '+(new and "creata" or "modificata")+' con successo',
 					'data':az
 				}))
-			except (EndBeforeStartException,ClosedProjectError, NoStartTimeException) as e:
+			except (EndBeforeStartException,ClosedProjectError, NoStartTimeException, NoProjectBounded) as e:
 				self.sendError(e)
 			return
 		elif params['method']== 'delete':
@@ -280,7 +280,7 @@ class ProjectHandler(MyHandler):
 					'data':pr
 				}))
 			except Exception as e:
-				self.sendError(e)
+				self.sendError(e, str(e))
 			return
 		elif params['method']== 'delete':
 			try:
