@@ -1,0 +1,57 @@
+body, html .filter_buttons{
+    font-family: Verdana;
+    font-size: 0.9em;
+}
+
+.filter_buttons #switcher { float: right; }
+
+.filter_buttons h1,
+.filter_buttons h2,
+.filter_buttons h3,
+.filter_buttons h4,
+.filter_buttons h5 {
+    font-size: 2em;
+    line-height: 1.5em;
+    margin-top: .4em;
+    margin-bottom: .8em;
+}
+
+.filter_buttons h2 {
+    font-size: 1.5em;
+}
+
+.filter_buttons p { margin-bottom: .8em; }
+
+
+.filter_buttons .ui-select {
+    display: block;
+    cursor: pointer;
+	width: 200px;
+}
+
+.filter_buttons .ui-select-menu,
+.filter_buttons .ui-select-menu ul {
+    cursor: default;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.filter_buttons .ui-select-menu li {
+    margin: 0;
+    padding: 0;
+}
+
+.filter_buttons label { display: block; margin-bottom: .4em; }
+
+.filter_buttons .ui-select-menu .ui-state-active {
+	background:rgba(255,100,30, 0.5);
+}
+
+.filter_buttons .ui-select-menu .ui-state-hover {
+	background:rgba(255,100,30, 0.2);
+}
+
+.filter_buttons .ui-select-menu .ui-state-active.ui-state-hover {
+	background:rgba(255,100,30, 1);
+}
