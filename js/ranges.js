@@ -17,7 +17,7 @@ function initRanges() {
 		etr.setHours(23);
 		etr.setMinutes(59);
 		
-		console.log(str + " - " + etr);
+		//console.log(str + " - " + etr);
 		
 		
 		jQuery(this).dateRangeSlider({
