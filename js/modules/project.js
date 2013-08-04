@@ -44,7 +44,7 @@
 		html += '<div class="filter_button">';
 		html += '<a href="#" id="refresh_project" title="Ricarica la tabella"><img src="imgs/zoom_icon24_black.png" /></a>';
 		html += '</div>';
-		html += '<select id="filter_azienda">';
+		html += '<select multiple="multiple" id="filter_azienda">';
 		//html += '<option value="*">Vedi tutto</option>';
 		for(var i=0; i<Aziende.lista.length; i++) {
 			var m = Aziende.lista[i];
