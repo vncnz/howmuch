@@ -35,6 +35,9 @@ body, html .filter_buttons{
     width: 100%;
     margin: 0;
     padding: 0;
+	max-height: 200px;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .filter_buttons .ui-select-menu li {
@@ -54,4 +57,9 @@ body, html .filter_buttons{
 
 .filter_buttons .ui-select-menu .ui-state-active.ui-state-hover {
 	background:rgba(255,100,30, 1);
+}
+
+.ui-menu .ui-menu-item a {
+	width: 90%;
+	margin: 0 auto !important;
 }
