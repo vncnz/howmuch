@@ -66,7 +66,9 @@ class SessionData(db.Model):
 			sessiondatadb.progetto = db.get(progetto)
 		#if azienda:
 		#	sessiondatadb.azienda = db.get(azienda)
-		if sessiondatadb.progetto and sessiondatadb.progetto.closed:
+		if not sessiondatadb.progetto:
+			raise NoProjectBounded()
+		elif sessiondatadb.progetto.closed:
 			raise ClosedProjectError()
 		if not sessiondatadb.start_time:
 			raise NoStartTimeException()
