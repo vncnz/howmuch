@@ -22,3 +22,11 @@ class ClosedProjectError(MyException):
 class NoNameProgettoException(MyException):
 	def __str__(self):
 		return repr(self.value or "Specificare un nome per il progetto")
+
+class NoProjectBounded(MyException):
+	def __str__(self):
+		return repr(self.value or "Non &egrave; stato specificato il progetto associato")
+
+class NoAziendaBounded(MyException):
+	def __str__(self):
+		return repr(self.value or "Non &egrave; stato specificato il cliente associato")
