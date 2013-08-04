@@ -64,6 +64,8 @@ class ProjectData(db.Model):
 			projectdatadb.closed = closed
 		if eur:
 			projectdatadb.eur = float(eur)
+		if not projectdatadb.azienda:
+			raise NoAziendaBounded()
 		projectdatadb.put()
 		return projectdatadb.myserialize(),new
 	
