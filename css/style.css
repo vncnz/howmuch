@@ -480,3 +480,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfff6363', e
 .date_picker {
 	width: 90px;
 }
+
+/*------------------- others ---------------------*/
+.btn{
+	background-color: whitesmoke;
+	color: #FF9933;
+	font-weight: bold;
+	font-size: 120%;
+	width: 10%;
+}
+.btn-primary{
+	background-color: #FF9933;
+	color: #3a3a3a;
+}
