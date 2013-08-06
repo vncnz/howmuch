@@ -144,6 +144,7 @@ var AziendaModule = function(){
 						alert(result.msg);
 					
 					$("div#mainContainer").html(allhtml);
+					hideLoader();
 				},
 				error: function(richiesta,stato,errori){
 					networkError();

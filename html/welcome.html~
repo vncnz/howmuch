@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<script type="text/javascript" src="js/jquery_191.min.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		
+		<!--[if lt IE 9]>
+		<script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		
+		<title>Invoice your money!</title>
+	</head>
+	<body>
+		<header>
+			<div class="header">
+				<h1>Invoice your money!</h1>
+			</div>
+			<nav>
+				<ul>
+					<li><a href="{{redirect_url}}" title="Sign in with your Google Account" id="login">
+						<img src="imgs/google_icon16_black.png" />
+						<span>{{init_string}}</span>
+					</a></li>
+				</ul>
+			</nav>
+		</header>
+		<div class="main_container">
+			<div class="main_content">
+				<h2>{{welcome_message}}</h2>
+			</div>
+		</div>
+		<footer>
+			<span>&copy; 2013 All rights reserved</span>&nbsp;-&nbsp;
+			<a href="#">credits</a>
+		</footer>
+	</body>
+</html>

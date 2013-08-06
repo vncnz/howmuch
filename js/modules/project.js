@@ -195,6 +195,8 @@
 							}
 						}
 					});
+					
+					hideLoader();
 				},
 				error: function(richiesta,stato,errori){
 					networkError();

@@ -91,13 +91,6 @@ function networkError() {
 	});
 }
 
-function hideLoader(){
-	$('#glass').fadeOut(function(){
-		$(this).hide();
-		$(this).css("z-index", "-1");
-	});
-}
-
 $(window).resize(function () {
 	var window_height = $(window).height();
 	var header_height = $("header").outerHeight();

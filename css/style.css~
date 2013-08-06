@@ -111,9 +111,9 @@ div#mainContainer {
 }
 @-webkit-keyframes bigpulse {
 	from { -webkit-transform: scale(1.0); }
-	25% { -webkit-transform: scale(0.7); }
-	50% { -webkit-transform: scale(1.3); }
-	75% { -webkit-transform: scale(0.7); }
+	25% { -webkit-transform: scale(0.85); }
+	50% { -webkit-transform: scale(1.15); }
+	75% { -webkit-transform: scale(0.85); }
 	to { -webkit-transform: scale(1.0); }
 }
 
@@ -125,6 +125,12 @@ div#mainContainer {
 	-webkit-animation-duration: 0.4s;
 	-webkit-animation-iteration-count: 1;
 }
+
+table td img {
+	width: 20px;
+	height: 20px;
+}
+
 table td img:hover,
 .form_field img:hover {
 	animation-name: bigpulse;
@@ -200,7 +206,7 @@ header nav ul li{
 	box-shadow: 0 1px 1px #000;
 	width: 120px;
 	height: 30px;
-	line-height: 30px;
+	line-height: 34px;
 	margin: 5px;
 	text-align: center;
 	cursor: pointer;
@@ -328,12 +334,17 @@ input.small_input{
 	position: relative;
 	float: left;
 	clear: left;
-	width: 65%;
+	width: 75%;
 	padding: 15px 2%;
+}
+
+#userdata table {
+	width: auto;
 }
 
 table {
 	border-collapse: collapse;
+	width: 96%;
 }
 
 table td {
@@ -348,6 +359,17 @@ table td * {
 .item_list table tr{
 	height: 16px;
 }
+
+.item_list table tr.deleting {
+background: -moz-linear-gradient(top, rgba(255,99,99,0.75) 0%, rgba(159,30,30,0) 35%, rgba(118,0,0,0) 50%, rgba(159,30,30,0) 65%, rgba(255,99,99,0.75) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,99,99,0.75)), color-stop(35%,rgba(159,30,30,0)), color-stop(50%,rgba(118,0,0,0)), color-stop(65%,rgba(159,30,30,0)), color-stop(100%,rgba(255,99,99,0.75))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, rgba(255,99,99,0.75) 0%,rgba(159,30,30,0) 35%,rgba(118,0,0,0) 50%,rgba(159,30,30,0) 65%,rgba(255,99,99,0.75) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, rgba(255,99,99,0.75) 0%,rgba(159,30,30,0) 35%,rgba(118,0,0,0) 50%,rgba(159,30,30,0) 65%,rgba(255,99,99,0.75) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, rgba(255,99,99,0.75) 0%,rgba(159,30,30,0) 35%,rgba(118,0,0,0) 50%,rgba(159,30,30,0) 65%,rgba(255,99,99,0.75) 100%); /* IE10+ */
+background: linear-gradient(to bottom, rgba(255,99,99,0.75) 0%,rgba(159,30,30,0) 35%,rgba(118,0,0,0) 50%,rgba(159,30,30,0) 65%,rgba(255,99,99,0.75) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfff6363', endColorstr='#bfff6363',GradientType=0 ); /* IE6-9 */
+}
+
 .item_list table tr th, .item_list table tr td{
 	padding: 10px;
 	border-bottom: 1px solid #3a3a3a;
@@ -373,9 +395,10 @@ table td * {
 /*------------------- item list and tables ---------------------*/
 .filter_items{
 	float: left;
-	width: 25%;
+	margin-top: 5%;
+	width: 15%;
 	padding: 15px 2%;
-	height: 200px;
+	height: 160px;
 	border-left: 1px solid #3a3a3a;
 	border-radius: 5px 0 0 5px;
 }
@@ -391,7 +414,7 @@ table td * {
 	width: 24px;
 	height: 24px;
 	line-height: 24px;
-	margin: 0 5px;
+	margin: 0 10px;
 }
 .filter_items .filter_buttons .filter_button a{
 	display: block;
@@ -403,6 +426,15 @@ table td * {
 .filter_items .filter_buttons .filter_button a img{
 	width: inherit;
 	height: inherit;
+}
+
+#refresh_project, 
+#search_project,
+#refresh_customer,
+#search_customer,
+#refresh_session,
+#search_session {
+	display: none;
 }
 
 /*------------------------- scrollbar -----------------*/
@@ -441,4 +473,51 @@ table td * {
 
 .right_text{
 	text-align: right;
+}
+
+
+
+.date_picker {
+	width: 90px;
+}
+
+
+/*----------------- glass and loader ----------------------*/
+.glass{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	/*background-color: #3a3a3a;
+	opacity: 0.6;
+	filter: alpha(opacity=60);*/
+	display: block;
+}
+.glass .loader{
+	position: absolute;
+	width: 220px;
+	height: 20px;
+	top: 50%;
+	left: 40%;
+}
+.glass .loader img{
+	width: inherit;
+	height: inherit;
+}
+
+/*------------------- others ---------------------*/
+.btn{
+	background-color: whitesmoke;
+	color: #FF3300;
+	font-weight: bold;
+	font-size: 120%;
+	width: 10%;
+	text-shadow: 0 1px 1px #3a3a3a;
+}
+.btn-primary{
+	background-color: #FF3300;
+	color: whitesmoke;
+	text-shadow: 0 1px 1px #000;
 }

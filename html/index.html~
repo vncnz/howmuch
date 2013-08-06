@@ -81,11 +81,11 @@
 			</div>
 			<nav id="main_menu">
 				<ul>
-					<li rel="fattura">Fattura</li>
-					<li rel="session">Sessioni</li>
-					<li rel="progetti">Progetti</li>
-					<li rel="aziende">Clienti</li>
-					<li rel="user">Dati utente</li>
+					<li rel="fattura" onclick="openPage('fattura');">Fattura</li>
+					<li rel="session" onclick="openPage('session');">Sessioni</li>
+					<li rel="progetti" onclick="openPage('progetti');">Progetti</li>
+					<li rel="aziende" onclick="openPage('aziende');">Clienti</li>
+					<li rel="user" onclick="openPage('user');">Dati utente</li>
 				</ul>
 			</nav>
 		</header>

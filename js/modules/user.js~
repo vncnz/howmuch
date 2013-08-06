@@ -34,7 +34,6 @@ var UserModule = function(){
 					var html = createPageHtml(model)
 					
 					$("div#mainContainer").html(html);
-					hideLoader();
 				},
 				error: function(richiesta,stato,errori){
 					networkError();

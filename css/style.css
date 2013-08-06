@@ -481,15 +481,43 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfff6363', e
 	width: 90px;
 }
 
+
+/*----------------- glass and loader ----------------------*/
+.glass{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	/*background-color: #3a3a3a;
+	opacity: 0.6;
+	filter: alpha(opacity=60);*/
+	display: none;
+}
+.glass .loader{
+	position: absolute;
+	width: 220px;
+	height: 20px;
+	top: 50%;
+	left: 40%;
+}
+.glass .loader img{
+	width: inherit;
+	height: inherit;
+}
+
 /*------------------- others ---------------------*/
 .btn{
 	background-color: whitesmoke;
-	color: #FF9933;
+	color: #FF3300;
 	font-weight: bold;
 	font-size: 120%;
 	width: 10%;
+	text-shadow: 0 1px 1px #3a3a3a;
 }
 .btn-primary{
-	background-color: #FF9933;
-	color: #3a3a3a;
+	background-color: #FF3300;
+	color: whitesmoke;
+	text-shadow: 0 1px 1px #000;
 }
