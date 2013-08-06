@@ -112,39 +112,42 @@ var AziendaModule = function(){
 				success:function(result){
 					//$("div#mainContainer").html(JSON.stringify(result));
 					result = JSON.parse(result);
+					
 					checkResponse(result);
 					
-					Aziende.lista = new Array();
-					var allhtml = '<div class="title">Gestione clienti</div>';
-					allhtml += createNewCompanyForm();
-					allhtml += '<hr />';
-					allhtml += '<div class="item_list">';
-					allhtml += '<div class="section_title"><h3>Elenco clienti</h3></div>'
-					if(!result.data.length)
-						allhtml += '<div><h4>Non &egrave; presente nessun cliente!</h4></div>';
-					else{
-						allhtml += '<table><thead>';
-						allhtml += '<th>Ragione Sociale</th>';
-						allhtml += '<th>Indirizzo</th>';
-						allhtml += '<th>Partita IVA</th>';
-						allhtml += '<th>Compenso orario (&euro;/h)</th>';
-						allhtml += '<th colspan="2"></th>';
-						allhtml += '</thead><tbody>';
-						for(var i=0; i<result.data.length; i++) {
-							var model = Aziende.create(result.data[i].key, result.data[i].name, result.data[i].address, result.data[i].piva, result.data[i].eur_h);
-							Aziende.lista.push(model);
-							allhtml += createPageHtml(model);
+					if(result.status == 0){						
+						Aziende.lista = new Array();
+						var allhtml = '<div class="title">Gestione clienti</div>';
+						allhtml += createNewCompanyForm();
+						allhtml += '<hr />';
+						allhtml += '<div class="item_list">';
+						allhtml += '<div class="section_title"><h3>Elenco clienti</h3></div>'
+						if(!result.data.length)
+							allhtml += '<div><h4>Non &egrave; presente nessun cliente!</h4></div>';
+						else{
+							allhtml += '<table><thead>';
+							allhtml += '<th>Ragione Sociale</th>';
+							allhtml += '<th>Indirizzo</th>';
+							allhtml += '<th>Partita IVA</th>';
+							allhtml += '<th>Compenso orario (&euro;/h)</th>';
+							allhtml += '<th colspan="2"></th>';
+							allhtml += '</thead><tbody>';
+							for(var i=0; i<result.data.length; i++) {
+								var model = Aziende.create(result.data[i].key, result.data[i].name, result.data[i].address, result.data[i].piva, result.data[i].eur_h);
+								Aziende.lista.push(model);
+								allhtml += createPageHtml(model);
+							}
+							allhtml += '</tbody></table>';
 						}
-						allhtml += '</tbody></table>';
+						allhtml += '</div>';
+						allhtml += createSearchForm();
+						
+						if(result.msg)
+							alert(result.msg);
+						
+						$("div#mainContainer").html(allhtml);
+						hideLoader();
 					}
-					allhtml += '</div>';
-					allhtml += createSearchForm();
-					
-					if(result.msg)
-						alert(result.msg);
-					
-					$("div#mainContainer").html(allhtml);
-					hideLoader();
 				},
 				error: function(richiesta,stato,errori){
 					networkError();
@@ -158,11 +161,15 @@ var AziendaModule = function(){
 				data: model,
 				success:function(result){
 					result = JSON.parse(result);
+					
 					checkResponse(result);
-					window.setTimeout(function(){
-						Aziende.getAziendePage({});
-						//alert("Record salvato con successo");
-					}, 400);
+					
+					if(result.status == 0){
+						window.setTimeout(function(){
+							Aziende.getAziendePage({});
+							//alert("Record salvato con successo");
+						}, 400);
+					}
 				},
 				error: function(richiesta,stato,errori){
 					networkError();
@@ -176,10 +183,14 @@ var AziendaModule = function(){
 				data: {"key":key},
 				success:function(result){
 					result = JSON.parse(result);
+					
 					checkResponse(result);
-					window.setTimeout(function(){
-						Aziende.getAziendePage({});
-					}, 300);
+					
+					if(result.status == 0){
+						window.setTimeout(function(){
+							Aziende.getAziendePage({});
+						}, 300);
+					}
 				},
 				error: function(richiesta,stato,errori){
 					networkError();

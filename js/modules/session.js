@@ -170,56 +170,58 @@
 				success: function(result){
 					result = JSON.parse(result);
 					
-					var allhtml = '<div class="title">Gestione sessioni di lavoro</div>';
-					allhtml += createNewSessionForm();
-					allhtml += '<hr />';
-					allhtml += '<div class="item_list">';
-					allhtml += '<div class="section_title"><h3>Elenco sessioni</h3></div>'
-					if(!result.data.length)
-						allhtml += '<div><h4>Non &egrave; presente nessuna sessione di lavoro!</h4></div>';
-					else{
-						allhtml += '<table><thead>';
-						allhtml += '<th>Progetto</th>';
-						//allhtml += '<th>Inizio UTC (per test)</th>';
-						//allhtml += '<th>Fine UTC (per test)</th>';
-						allhtml += '<th>Data</th>';
-						allhtml += '<th>Intervallo</th>';
-						allhtml += '<th colspan="2"></th>';
-						allhtml += '</thead><tbody>';
-						for(var i = 0; i < result.data.length; i++) {
-							var model = result.data[i];
-							allhtml += createPageHtml(model);
+					if(result.status == 0){
+						var allhtml = '<div class="title">Gestione sessioni di lavoro</div>';
+						allhtml += createNewSessionForm();
+						allhtml += '<hr />';
+						allhtml += '<div class="item_list">';
+						allhtml += '<div class="section_title"><h3>Elenco sessioni</h3></div>'
+						if(!result.data.length)
+							allhtml += '<div><h4>Non &egrave; presente nessuna sessione di lavoro!</h4></div>';
+						else{
+							allhtml += '<table><thead>';
+							allhtml += '<th>Progetto</th>';
+							//allhtml += '<th>Inizio UTC (per test)</th>';
+							//allhtml += '<th>Fine UTC (per test)</th>';
+							allhtml += '<th>Data</th>';
+							allhtml += '<th>Intervallo</th>';
+							allhtml += '<th colspan="2"></th>';
+							allhtml += '</thead><tbody>';
+							for(var i = 0; i < result.data.length; i++) {
+								var model = result.data[i];
+								allhtml += createPageHtml(model);
+							}
+							allhtml += '</tbody></table>';
 						}
-						allhtml += '</tbody></table>';
-					}
-					allhtml += '</div>';
-					allhtml += createSearchForm();
-						
-					$("div#mainContainer").html(allhtml);
-					//initDatepickers();
-					$('.datepicker').datepicker({
-						dateFormat: "dd/mm/yy"
-					});
-					$('.datepicker').change(function(){
-						Session.onChangeDate($(this).attr("sekey") || '');
-					});
-					initRanges();
-					$('select#filter_progetto').select({
-						maxItemDisplay: 2,
-						onclick: function(selArray){
-							if(!selArray || !selArray.length) {
-								$("div#mainContainer tbody tr").fadeIn();
-							} else {
-								$("div#mainContainer tbody tr").fadeOut();
-								for(var i=0; i<selArray.length; i++) {
-									var k = selArray[i];
-									$("tr.pr_"+k).fadeIn();
+						allhtml += '</div>';
+						allhtml += createSearchForm();
+							
+						$("div#mainContainer").html(allhtml);
+						//initDatepickers();
+						$('.datepicker').datepicker({
+							dateFormat: "dd/mm/yy"
+						});
+						$('.datepicker').change(function(){
+							Session.onChangeDate($(this).attr("sekey") || '');
+						});
+						initRanges();
+						$('select#filter_progetto').select({
+							maxItemDisplay: 2,
+							onclick: function(selArray){
+								if(!selArray || !selArray.length) {
+									$("div#mainContainer tbody tr").fadeIn();
+								} else {
+									$("div#mainContainer tbody tr").fadeOut();
+									for(var i=0; i<selArray.length; i++) {
+										var k = selArray[i];
+										$("tr.pr_"+k).fadeIn();
+									}
 								}
 							}
-						}
-					});
-					
-					hideLoader();
+						});
+						
+						hideLoader();
+					}
 				},
 				error: function(richiesta,stato,errori){
 					networkError();
@@ -247,11 +249,15 @@
 				data: model,
 				success:function(result){
 					result = JSON.parse(result);
+					
 					checkResponse(result);
-					window.setTimeout(function(){
-						Session.getSessionPage({});
-						//alert("Record salvato con successo");
-					}, 400);
+					
+					if(result.status == 0){
+						window.setTimeout(function(){
+							Session.getSessionPage({});
+							//alert("Record salvato con successo");
+						}, 400);
+					}
 				},
 				error: function(richiesta,stato,errori){
 					networkError();
@@ -273,15 +279,19 @@
 				success:function(result){
 					Session.resetDeleting();
 					result = JSON.parse(result);
+					
 					checkResponse(result);
-					for(var i=0; i<result.data.keys.length; i++) {
-						$("#session_"+result.data.keys[i]).fadeOut(function(){
-							$("#session_"+result.data.keys[i]).remove();
-						});
+					
+					if(result.status == 0){
+						for(var i=0; i<result.data.keys.length; i++) {
+							$("#session_"+result.data.keys[i]).fadeOut(function(){
+								$("#session_"+result.data.keys[i]).remove();
+							});
+						}
+						/*window.setTimeout(function(){
+							Session.getSessionPage({});
+						}, 300);*/
 					}
-					/*window.setTimeout(function(){
-						Session.getSessionPage({});
-					}, 300);*/
 				},
 				error: function(richiesta,stato,errori){
 					networkError();
@@ -299,10 +309,14 @@
 				data: {"key":key},
 				success:function(result){
 					result = JSON.parse(result);
+					
 					checkResponse(result);
-					window.setTimeout(function(){
-						Session.getSessionPage({});
-					}, 300);
+					
+					if(result.status == 0){
+						window.setTimeout(function(){
+							Session.getSessionPage({});
+						}, 300);
+					}
 				},
 				error: function(richiesta,stato,errori){
 					networkError();

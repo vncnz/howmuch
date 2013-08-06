@@ -29,12 +29,16 @@ var UserModule = function(){
 				data: userData,
 				success:function(result){
 					result = JSON.parse(result);
-					checkResponse(result);
-					var model = result.data;
-					var html = createPageHtml(model)
 					
-					$("div#mainContainer").html(html);
-					hideLoader();
+					checkResponse(result);
+					
+					if(result.status == 0){
+						var model = result.data;
+						var html = createPageHtml(model)
+						
+						$("div#mainContainer").html(html);
+						hideLoader();
+					}
 				},
 				error: function(richiesta,stato,errori){
 					networkError();

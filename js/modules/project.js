@@ -151,52 +151,55 @@
 				data: {},
 				success: function(result){
 					result = JSON.parse(result);
-					Progetto.lista = new Array();
 					
-					var allhtml = '<div class="title">Gestione progetti</div>';
-					allhtml += createNewProgettoForm();
-					allhtml += '<hr />';
-					allhtml += '<div class="item_list">';
-					allhtml += '<div class="section_title"><h3>Elenco progetti</h3></div>'
-					if(!result.data.length)
-						allhtml += '<div><h4>Non &egrave; presente nessun progetto!</h4></div>';
-					else{
-						allhtml += '<table><thead>';
-						allhtml += '<th>Cliente</th>';
-						allhtml += '<th>Nome</th>';
-						allhtml += '<th>Compenso (&euro;)</th>';
-						allhtml += '<th>Chiuso</th>';
-						allhtml += '<th colspan="2"></th>';
-						allhtml += '</thead><tbody>';
-						for(var i = 0; i < result.data.length; i++) {
-							var model = result.data[i];
-							Progetto.lista.push(model);
-							allhtml += createPageHtml(model);
-						}
-						allhtml += '</tbody></table>';
-					}
-					allhtml += '</div>';
-					allhtml += createSearchForm();
+					if(result.status == 0){
+						Progetto.lista = new Array();
 						
-					$("div#mainContainer").html(allhtml);
-					initDatepickers();
-					$('select#filter_azienda').select({
-						maxItemDisplay: 2,
-						onclick: function(selArray){
-							if(!selArray || !selArray.length) {
-								$("div#mainContainer tbody tr").fadeIn();
-							} else {
-								//console.log(JSON.stringify(selArray));
-								$("div#mainContainer tbody tr").fadeOut();
-								for(var i=0; i<selArray.length; i++) {
-									var k = selArray[i];
-									$("tr.az_"+k).fadeIn();
+						var allhtml = '<div class="title">Gestione progetti</div>';
+						allhtml += createNewProgettoForm();
+						allhtml += '<hr />';
+						allhtml += '<div class="item_list">';
+						allhtml += '<div class="section_title"><h3>Elenco progetti</h3></div>'
+						if(!result.data.length)
+							allhtml += '<div><h4>Non &egrave; presente nessun progetto!</h4></div>';
+						else{
+							allhtml += '<table><thead>';
+							allhtml += '<th>Cliente</th>';
+							allhtml += '<th>Nome</th>';
+							allhtml += '<th>Compenso (&euro;)</th>';
+							allhtml += '<th>Chiuso</th>';
+							allhtml += '<th colspan="2"></th>';
+							allhtml += '</thead><tbody>';
+							for(var i = 0; i < result.data.length; i++) {
+								var model = result.data[i];
+								Progetto.lista.push(model);
+								allhtml += createPageHtml(model);
+							}
+							allhtml += '</tbody></table>';
+						}
+						allhtml += '</div>';
+						allhtml += createSearchForm();
+							
+						$("div#mainContainer").html(allhtml);
+						initDatepickers();
+						$('select#filter_azienda').select({
+							maxItemDisplay: 2,
+							onclick: function(selArray){
+								if(!selArray || !selArray.length) {
+									$("div#mainContainer tbody tr").fadeIn();
+								} else {
+									//console.log(JSON.stringify(selArray));
+									$("div#mainContainer tbody tr").fadeOut();
+									for(var i=0; i<selArray.length; i++) {
+										var k = selArray[i];
+										$("tr.az_"+k).fadeIn();
+									}
 								}
 							}
-						}
-					});
-					
-					hideLoader();
+						});
+						
+						hideLoader();
+					}
 				},
 				error: function(richiesta,stato,errori){
 					networkError();
@@ -210,10 +213,14 @@
 				data: model,
 				success:function(result){
 					result = JSON.parse(result);
+					
 					checkResponse(result);
-					window.setTimeout(function(){
-						Progetto.getProgettiPage({});
-					}, 400);
+					
+					if(result.status == 0){
+						window.setTimeout(function(){
+							Progetto.getProgettiPage({});
+						}, 400);
+					}
 				},
 				error: function(richiesta,stato,errori){
 					networkError();
@@ -235,15 +242,19 @@
 				success:function(result){
 					Progetto.resetDeleting();
 					result = JSON.parse(result);
+					
 					checkResponse(result);
-					for(var i=0; i<result.data.keys.length; i++) {
-						$("#project_"+result.data.keys[i]).fadeOut(function(){
-							$("#project_"+result.data.keys[i]).remove();
-						});
+					
+					if(result.status == 0){
+						for(var i=0; i<result.data.keys.length; i++) {
+							$("#project_"+result.data.keys[i]).fadeOut(function(){
+								$("#project_"+result.data.keys[i]).remove();
+							});
+						}
+						/*window.setTimeout(function(){
+							Session.getSessionPage({});
+						}, 300);*/
 					}
-					/*window.setTimeout(function(){
-						Session.getSessionPage({});
-					}, 300);*/
 				},
 				error: function(richiesta,stato,errori){
 					networkError();
@@ -261,10 +272,14 @@
 				data: {"key":key},
 				success:function(result){
 					result = JSON.parse(result);
+					
 					checkResponse(result);
-					window.setTimeout(function(){
-						Progetto.getProgettiPage({});
-					}, 300);
+					
+					if(result.status == 0){
+						window.setTimeout(function(){
+							Progetto.getProgettiPage({});
+						}, 300);
+					}
 				},
 				error: function(richiesta,stato,errori){
 					networkError();
