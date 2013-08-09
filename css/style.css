@@ -41,6 +41,10 @@ div#mainContainer {
 	font-family: 'Aldrich', sans-serif;
 	padding: 5px 0;
 }
+.title.small{
+	font-size: 12px;
+	font-weight: normal;
+}
 
 .inevidence {
 	font-size: 18px;
@@ -185,7 +189,7 @@ header nav{
 	right: 0;
 	height: 100%;
 	line-height: 100%;
-	width: 50%;
+	width: 55%;
 }
 header nav ul{
 	list-style: none;
@@ -226,13 +230,67 @@ header nav ul li a img{
 	display: inline-block;
 	vertical-align: middle;
 }
-header nav ul li:hover{
+header nav ul li:hover, header nav ul li.selected{
 	background-color: #333;
 	box-shadow: none;
 	color: #FF9933;
 }
-header nav ul li:hover a{
+header nav ul li:hover a, header nav ul li.selected a{
 	color: #FF9933;
+}
+header nav ul li.no_border{
+	border-radius: 5px 5px 0 0;
+}
+
+header nav ul li.icon_btn span{
+	font-size: 90%;
+}
+header nav ul li img{
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+}
+header nav ul li.short_btn{
+	width: 40px;
+}
+
+header nav ul li .sub_content{
+	position: absolute;
+	right: 0;
+	top: 35px;
+	width: 200%;
+	background-color: #FF9933;
+	border-radius: 0 0 5px 5px;
+	z-index: -1;
+	box-shadow: 0 1px #000;
+	display: none;
+}
+header nav ul li .sub_content a{
+	color: #000;
+	text-decoration: none;
+}
+header nav ul li .sub_content a:hover{
+	color: whitesmoke;
+	text-shadow: 0 1px #000;
+}
+header nav ul li .sub_content div{
+	padding: 2px 2%;
+	text-align: left;
+	width: 96%;
+}
+header nav ul li .sub_content .logout{
+	clear: both;
+	border-bottom: 1px inset #000;
+	height: 30px;
+	text-align: right;
+}
+header nav ul li .sub_content .logout:hover{
+	background-color: #333;
+}
+header nav ul li .sub_content .logout a{
+	display: block;
+	width: 100%;
+	height: 100%;
 }
 
 /*--------------- main container -----------------*/
@@ -326,6 +384,9 @@ input[readonly="readonly"]
 input.small_input{
 	width: 30%;
 	text-align: center;
+}
+input.short_input{
+	width: 50%;
 }
 
 /*------------------- item list and tables ---------------------*/
@@ -518,6 +579,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfff6363', e
 }
 .btn-primary{
 	background-color: #FF3300;
+	color: whitesmoke;
+	text-shadow: 0 1px 1px #000;
+}
+.btn-primary:hover{
+	background-color: red;
 	color: whitesmoke;
 	text-shadow: 0 1px 1px #000;
 }
